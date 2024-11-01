@@ -1,9 +1,9 @@
 type KeyedFunction<K extends string, F extends Function> = F & { key: K }
 
-export const synk = <K extends string, C, R>(key: K, fn: (ctx: C) => R): KeyedFunction<K, (ctx: C) => R> =>
+export const pure = <K extends string, C, R>(key: K, fn: (ctx: C) => R): KeyedFunction<K, (ctx: C) => R> =>
   Object.assign(fn, { key })
 
-export const asynk = <K extends string, C, R>(
+export const eff = <K extends string, C, R>(
   key: K,
   fn: (ctx: C) => Promise<R>
 ): KeyedFunction<K, (ctx: C) => Promise<R>> => Object.assign(fn, { key })
