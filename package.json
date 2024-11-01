@@ -4,7 +4,8 @@
   "description": "pipes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf dist && tsc",
+    "test": "node --experimental-strip-types --test ./test.ts"
   },
   "keywords": [
     "functional"
