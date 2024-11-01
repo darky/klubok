@@ -441,7 +441,7 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
         ? (acc, fn) => acc.then(ctx => Promise.resolve(fn(ctx)).then(resp => ({ ...ctx, [fn.key]: resp })))
         : (acc, fn) =>
             acc.then(ctx =>
-              Reflect.has(mock ?? {}, fn.key) || ((only ?? new Set()).size && !(only ?? new Set()).has(fn.key))
+              Reflect.has(mock ?? {}, fn.key) || (only && only.size && !only.has(fn.key))
                 ? ctx
                 : Promise.resolve(fn(ctx)).then(resp => ({ ...ctx, [fn.key]: resp }))
             ),
