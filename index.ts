@@ -10,12 +10,13 @@ export const eff = <K extends string, C, R>(
 
 export function klubok<K1 extends string, C extends object, R1>(
   fn1: KeyedFunction<K1, (ctx: C) => Promise<R1> | R1>
-): (ctx: C & { [k in K1]?: R1 }, only?: Set<K1>) => Promise<C & { [k in K1]: R1 }>
+): (ctx: C, mock?: { [k in K1]?: R1 }, only?: Set<K1>) => Promise<C & { [k in K1]: R1 }>
 export function klubok<K1 extends string, K2 extends string, C extends object, R1, R2>(
   fn1: KeyedFunction<K1, (ctx: C) => Promise<R1> | R1>,
   fn2: KeyedFunction<K2, (ctx: C & { [k in K1]: R1 }) => Promise<R2> | R2>
 ): (
-  ctx: C & { [k in K1]?: R1 } & { [k in K2]?: R2 },
+  ctx: C,
+  mock?: { [k in K1]?: R1 } & { [k in K2]?: R2 },
   only?: Set<K1 | K2>
 ) => Promise<C & { [k in K1]: R1 } & { [k in K2]: R2 }>
 export function klubok<K1 extends string, K2 extends string, K3 extends string, C extends object, R1, R2, R3>(
@@ -23,7 +24,8 @@ export function klubok<K1 extends string, K2 extends string, K3 extends string, 
   fn2: KeyedFunction<K2, (ctx: C & { [k in K1]: R1 }) => Promise<R2> | R2>,
   fn3: KeyedFunction<K3, (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => Promise<R3> | R3>
 ): (
-  ctx: C & { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 },
+  ctx: C,
+  mock?: { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 },
   only?: Set<K1 | K2 | K3>
 ) => Promise<C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }>
 export function klubok<
@@ -42,7 +44,8 @@ export function klubok<
   fn3: KeyedFunction<K3, (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => Promise<R3> | R3>,
   fn4: KeyedFunction<K4, (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => Promise<R4> | R4>
 ): (
-  ctx: C & { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 } & { [k in K4]?: R4 },
+  ctx: C,
+  mock?: { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 } & { [k in K4]?: R4 },
   only?: Set<K1 | K2 | K3 | K4>
 ) => Promise<C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }>
 export function klubok<
@@ -67,7 +70,8 @@ export function klubok<
     (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => Promise<R5> | R5
   >
 ): (
-  ctx: C & { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 } & { [k in K4]?: R4 } & { [k in K5]?: R5 },
+  ctx: C,
+  mock?: { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 } & { [k in K4]?: R4 } & { [k in K5]?: R5 },
   only?: Set<K1 | K2 | K3 | K4 | K5>
 ) => Promise<C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }>
 export function klubok<
@@ -100,7 +104,8 @@ export function klubok<
     ) => Promise<R6> | R6
   >
 ): (
-  ctx: C & { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 } & { [k in K4]?: R4 } & { [k in K5]?: R5 } & {
+  ctx: C,
+  mock?: { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 } & { [k in K4]?: R4 } & { [k in K5]?: R5 } & {
     [k in K6]?: R6
   },
   only?: Set<K1 | K2 | K3 | K4 | K5 | K6>
@@ -149,7 +154,8 @@ export function klubok<
     ) => Promise<R7> | R7
   >
 ): (
-  ctx: C & { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 } & { [k in K4]?: R4 } & { [k in K5]?: R5 } & {
+  ctx: C,
+  mock?: { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 } & { [k in K4]?: R4 } & { [k in K5]?: R5 } & {
     [k in K6]?: R6
   } & {
     [k in K7]?: R7
@@ -214,7 +220,8 @@ export function klubok<
     ) => Promise<R8> | R8
   >
 ): (
-  ctx: C & { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 } & { [k in K4]?: R4 } & { [k in K5]?: R5 } & {
+  ctx: C,
+  mock?: { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 } & { [k in K4]?: R4 } & { [k in K5]?: R5 } & {
     [k in K6]?: R6
   } & {
     [k in K7]?: R7
@@ -297,7 +304,8 @@ export function klubok<
     ) => Promise<R9> | R9
   >
 ): (
-  ctx: C & { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 } & { [k in K4]?: R4 } & { [k in K5]?: R5 } & {
+  ctx: C,
+  mock?: { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 } & { [k in K4]?: R4 } & { [k in K5]?: R5 } & {
     [k in K6]?: R6
   } & {
     [k in K7]?: R7
@@ -400,7 +408,8 @@ export function klubok<
     ) => Promise<R10> | R10
   >
 ): (
-  ctx: C & { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 } & { [k in K4]?: R4 } & { [k in K5]?: R5 } & {
+  ctx: C,
+  mock?: { [k in K1]?: R1 } & { [k in K2]?: R2 } & { [k in K3]?: R3 } & { [k in K4]?: R4 } & { [k in K5]?: R5 } & {
     [k in K6]?: R6
   } & {
     [k in K7]?: R7
@@ -426,14 +435,16 @@ export function klubok<
   }
 >
 export function klubok(...fns: KeyedFunction<string, Function>[]) {
-  return (rootCtx = {}, only = new Set<string>()) =>
+  return (rootCtx = {}, mock?: object, only?: Set<string>) =>
     fns.reduce(
-      (acc, fn) =>
-        acc.then(ctx =>
-          Reflect.has(ctx, fn.key) || (only.size && !only.has(fn.key))
-            ? ctx
-            : Promise.resolve(fn(ctx)).then(resp => ({ ...ctx, [fn.key]: resp }))
-        ),
-      Promise.resolve(rootCtx)
+      mock == null && only == null
+        ? (acc, fn) => acc.then(ctx => Promise.resolve(fn(ctx)).then(resp => ({ ...ctx, [fn.key]: resp })))
+        : (acc, fn) =>
+            acc.then(ctx =>
+              Reflect.has(mock ?? {}, fn.key) || ((only ?? new Set()).size && !(only ?? new Set()).has(fn.key))
+                ? ctx
+                : Promise.resolve(fn(ctx)).then(resp => ({ ...ctx, [fn.key]: resp }))
+            ),
+      Promise.resolve({ ...rootCtx, ...mock })
     )
 }

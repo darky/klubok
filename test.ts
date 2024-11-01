@@ -16,12 +16,12 @@ test('1 param async, resp', async () => {
 
 test('1 param sync, mocked', async () => {
   const fn = klubok(pure('incNumber', (ctx: { number: number }) => ctx.number + 1))
-  assert.deepStrictEqual(await fn({ number: 1, incNumber: 1 }), { number: 1, incNumber: 1 })
+  assert.deepStrictEqual(await fn({ number: 1 }, { incNumber: 1 }), { number: 1, incNumber: 1 })
 })
 
 test('1 param async, mocked', async () => {
   const fn = klubok(eff('incNumber', async (ctx: { number: number }) => ctx.number + 1))
-  assert.deepStrictEqual(await fn({ number: 1, incNumber: 1 }), { number: 1, incNumber: 1 })
+  assert.deepStrictEqual(await fn({ number: 1 }, { incNumber: 1 }), { number: 1, incNumber: 1 })
 })
 
 test('2 params sync, resp', async () => {
@@ -45,7 +45,7 @@ test('2 params sync, mock', async () => {
     pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
     pure('strNumber', ({ incNumber }) => incNumber.toString())
   )
-  assert.deepStrictEqual(await fn({ number: 1, strNumber: '' }), { number: 1, incNumber: 2, strNumber: '' })
+  assert.deepStrictEqual(await fn({ number: 1 }, { strNumber: '' }), { number: 1, incNumber: 2, strNumber: '' })
 })
 
 test('2 params async, mock', async () => {
@@ -53,7 +53,7 @@ test('2 params async, mock', async () => {
     eff('incNumber', async (ctx: { number: number }) => ctx.number + 1),
     eff('strNumber', async ({ incNumber }) => incNumber.toString())
   )
-  assert.deepStrictEqual(await fn({ number: 1, strNumber: '' }), { number: 1, incNumber: 2, strNumber: '' })
+  assert.deepStrictEqual(await fn({ number: 1 }, { strNumber: '' }), { number: 1, incNumber: 2, strNumber: '' })
 })
 
 test('2 params async, only', async () => {
@@ -61,7 +61,7 @@ test('2 params async, only', async () => {
     eff('incNumber', async (ctx: { number: number }) => ctx.number + 1),
     eff('strNumber', async ({ incNumber }) => incNumber.toString())
   )
-  assert.deepStrictEqual(await fn({ number: 1 }, new Set(['incNumber'])), {
+  assert.deepStrictEqual(await fn({ number: 1 }, {}, new Set(['incNumber'])), {
     number: 1,
     incNumber: 2,
   })
@@ -163,7 +163,7 @@ test('8 params sync, mock', async () => {
     pure('arrLength', ({ numbersArray }) => numbersArray.length),
     pure('isMocked', ({ numbersArray }) => numbersArray.length === 0)
   )
-  assert.deepStrictEqual(await fn({ number: 1, numbersArray: [] }), {
+  assert.deepStrictEqual(await fn({ number: 1 }, { numbersArray: [] }), {
     number: 1,
     incNumber: 2,
     strNumber: '2',
@@ -188,7 +188,7 @@ test('9 params sync, only', async () => {
     pure('isMocked', ({ numbersArray }) => numbersArray.length === 0),
     pure('neverExists', () => null)
   )
-  assert.deepStrictEqual(await fn({ number: 1 }, new Set(['strLength', 'strNumber', 'incNumber'])), {
+  assert.deepStrictEqual(await fn({ number: 1 }, {}, new Set(['strLength', 'strNumber', 'incNumber'])), {
     number: 1,
     incNumber: 2,
     strNumber: '2',
