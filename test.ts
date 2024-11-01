@@ -176,6 +176,33 @@ test('8 params sync, mock', async () => {
   })
 })
 
+test('8 params sync, mock via fn', async () => {
+  const fn = klubok(
+    pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
+    pure('strNumber', ({ incNumber }) => incNumber.toString()),
+    pure('strLength', ({ strNumber }) => strNumber.length),
+    pure('strLengthPositive', ({ strLength }) => strLength > 0),
+    pure('sum', ({ strLength, incNumber }) => strLength + incNumber),
+    pure('numbersArray', ({ number, incNumber, strLength, sum }) => [number, incNumber, strLength, sum]),
+    pure('arrLength', ({ numbersArray }) => numbersArray.length),
+    pure('isMocked', ({ numbersArray }) => numbersArray.length === 0)
+  )
+  assert.deepStrictEqual(
+    await fn({ number: 1 }, { numbersArray: ({ strNumber }) => (assert.strictEqual(strNumber, '2'), []) }),
+    {
+      number: 1,
+      incNumber: 2,
+      strNumber: '2',
+      strLength: 1,
+      strLengthPositive: true,
+      sum: 3,
+      numbersArray: [],
+      arrLength: 0,
+      isMocked: true,
+    }
+  )
+})
+
 test('9 params sync, only', async () => {
   const fn = klubok(
     pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
