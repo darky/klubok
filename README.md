@@ -22,7 +22,7 @@ catsBirthdays({ ids: [1, 2, 3] }) // production implementation
 catsBirthdays(
   { ids: [1, 2, 3] },
   {
-    cats: [ // DB response mock
+    cats: [ // DB response mock, can be function
       { name: 'Barsik', age: 10 },
       { name: 'Marfa', age: 7 }
     ]
