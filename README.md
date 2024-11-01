@@ -27,7 +27,7 @@ catsBirthdays(
       { name: 'Marfa', age: 7 }
     ]
   },
-  new Set(['catsOneYearOld']) // call only this functions
+  ['catsOneYearOld'] // call only this functions
 ) // Promise<{ ..., catsOneYearOld: [{ name: 'Barsik', age: 11 }, { name: 'Marfa', age: 8 }] }>
 
 ```
