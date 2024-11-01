@@ -61,7 +61,7 @@ test('2 params async, only', async () => {
     eff('incNumber', async (ctx: { number: number }) => ctx.number + 1),
     eff('strNumber', async ({ incNumber }) => incNumber.toString())
   )
-  assert.deepStrictEqual(await fn({ number: 1 }, {}, new Set(['incNumber'])), {
+  assert.deepStrictEqual(await fn({ number: 1 }, {}, ['incNumber']), {
     number: 1,
     incNumber: 2,
   })
@@ -215,7 +215,7 @@ test('9 params sync, only', async () => {
     pure('isMocked', ({ numbersArray }) => numbersArray.length === 0),
     pure('neverExists', () => null)
   )
-  assert.deepStrictEqual(await fn({ number: 1 }, {}, new Set(['strLength', 'strNumber', 'incNumber'])), {
+  assert.deepStrictEqual(await fn({ number: 1 }, {}, ['strLength', 'strNumber', 'incNumber']), {
     number: 1,
     incNumber: 2,
     strNumber: '2',
