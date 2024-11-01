@@ -1,14 +1,32 @@
 {
   "name": "klubok",
   "version": "0.0.0",
-  "description": "pipes",
-  "main": "index.js",
+  "description": "Do notation pipes for Promise-based or pure functions which easy to mock",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:darky/klubok.git"
+  },
+  "files": [
+    "dist/index.js",
+    "dist/index.d.ts"
+  ],
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "test": "node --experimental-strip-types --test ./test.ts"
   },
   "keywords": [
-    "functional"
+    "functional",
+    "programming",
+    "fp",
+    "pipe",
+    "do",
+    "notation",
+    "mock",
+    "unit",
+    "test",
+    "promise"
   ],
   "author": "Vladislav Botvin",
   "license": "MIT",
