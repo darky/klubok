@@ -53,3 +53,14 @@ test('2 params async, mock', async () => {
   )
   assert.deepStrictEqual(await fn({ number: 1, strNumber: '' }), { number: 1, incNumber: 2, strNumber: '' })
 })
+
+test('2 params async, only', async () => {
+  const fn = klubok(
+    asynk('incNumber', async (ctx: { number: number }) => ctx.number + 1),
+    asynk('strNumber', async ({ incNumber }) => incNumber.toString())
+  )
+  assert.deepStrictEqual(await fn({ number: 1 }, new Set(['incNumber'])), {
+    number: 1,
+    incNumber: 2,
+  })
+})
