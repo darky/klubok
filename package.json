@@ -4,7 +4,7 @@
   "description": "pipes",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "test": "node --experimental-strip-types --test ./test.ts"
   },
   "keywords": [
