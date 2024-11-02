@@ -566,11 +566,22 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
   return (rootCtx = {}, mock?: object, only?: string[]) =>
     fns.reduce(
       mock == null && only == null
-        ? (acc, fn) => acc.then(ctx => Promise.resolve(fn(ctx)).then(resp => ({ ...ctx, [fn.key]: resp })))
+        ? (acc, fn) =>
+            acc.then(ctx =>
+              Reflect.has(ctx, fn.key)
+                ? Promise.reject(
+                    new Error(`Try to override existing alias "${fn.key}". Let's rename alias or use "mut" wrapper`)
+                  )
+                : Promise.resolve(fn(ctx)).then(resp => ({ ...ctx, [fn.key]: resp }))
+            )
         : (acc, fn) =>
             acc.then(ctx =>
-              (mock && Reflect.has(mock, fn.key) && typeof Reflect.get(mock, fn.key) !== 'function') ||
-              (only && only.length && !only.includes(fn.key))
+              Reflect.has(ctx, fn.key) && !Reflect.has(mock ?? {}, fn.key)
+                ? Promise.reject(
+                    new Error(`Try to override existing alias "${fn.key}". Let's rename alias or use "mut" wrapper`)
+                  )
+                : (mock && Reflect.has(mock, fn.key) && typeof Reflect.get(mock, fn.key) !== 'function') ||
+                  (only && only.length && !only.includes(fn.key))
                 ? ctx
                 : Promise.resolve(
                     mock && Reflect.has(mock, fn.key) && typeof Reflect.get(mock, fn.key) === 'function'

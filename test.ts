@@ -250,3 +250,27 @@ test('10 params sync, resp', async () => {
     voidHere: void 0,
   })
 })
+
+test('overriding of alias should be forbidden', async () => {
+  const fn = klubok(
+    pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
+    pure('strNumber', ({ incNumber }) => incNumber.toString()),
+    pure('strNumber', ({ incNumber }) => `string - ${incNumber}`)
+  )
+  await assert.rejects(
+    () => fn({ number: 1 }),
+    new Error('Try to override existing alias "strNumber". Let\'s rename alias or use "mut" wrapper')
+  )
+})
+
+test('overriding of alias should be forbidden if pass mock or only', async () => {
+  const fn = klubok(
+    pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
+    pure('strNumber', ({ incNumber }) => incNumber.toString()),
+    pure('strNumber', ({ incNumber }) => `string - ${incNumber}`)
+  )
+  await assert.rejects(
+    () => fn({ number: 1 }, {}, []),
+    new Error('Try to override existing alias "strNumber". Let\'s rename alias or use "mut" wrapper')
+  )
+})
