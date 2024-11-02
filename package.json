@@ -15,7 +15,8 @@
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "test": "node --experimental-strip-types --test ./test.ts",
-    "test:types": "cp index.test-d.ts ./dist/ && npx tsd"
+    "test:types": "cp index.test-d.ts ./dist/ && npx tsd",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "functional",
