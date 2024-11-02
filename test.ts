@@ -1,5 +1,5 @@
 import test from 'node:test'
-import { eff, klubok, pure } from './index.ts'
+import { eff, klubok, mut, pure } from './index.ts'
 import assert from 'node:assert'
 
 test('1 param sync, resp', async () => {
@@ -273,4 +273,30 @@ test('overriding of alias should be forbidden if pass mock or only', async () =>
     () => fn({ number: 1 }, {}, []),
     new Error('Try to override existing alias "strNumber". Let\'s rename alias or use "mut" wrapper')
   )
+})
+
+test('overriding of alias should be allowed if marked as mutable', async () => {
+  const fn = klubok(
+    pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
+    pure('strNumber', ({ incNumber }) => incNumber.toString()),
+    mut(pure('strNumber', ({ incNumber }) => `string - ${incNumber}`))
+  )
+  assert.deepStrictEqual(await fn({ number: 1 }), {
+    incNumber: 2,
+    number: 1,
+    strNumber: 'string - 2',
+  })
+})
+
+test('overriding of alias should be allowed if marked as mutable when pass mock or only', async () => {
+  const fn = klubok(
+    pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
+    pure('strNumber', ({ incNumber }) => incNumber.toString()),
+    mut(pure('strNumber', ({ incNumber }) => `string - ${incNumber}`))
+  )
+  assert.deepStrictEqual(await fn({ number: 1 }, {}, []), {
+    incNumber: 2,
+    number: 1,
+    strNumber: 'string - 2',
+  })
 })

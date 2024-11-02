@@ -1,12 +1,15 @@
-type KeyedFunction<K extends string, F extends Function> = F & { key: K }
+type KeyedFunction<K extends string, F extends Function> = F & { key: K; mutable: boolean }
 
 export const pure = <K extends string, C, R>(key: K, fn: (ctx: C) => R): KeyedFunction<K, (ctx: C) => R> =>
-  Object.assign(fn, { key })
+  Object.assign(fn, { key, mutable: false })
 
 export const eff = <K extends string, C, R>(
   key: K,
   fn: (ctx: C) => Promise<R>
-): KeyedFunction<K, (ctx: C) => Promise<R>> => Object.assign(fn, { key })
+): KeyedFunction<K, (ctx: C) => Promise<R>> => Object.assign(fn, { key, mutable: false })
+
+export const mut = <K extends string, C, R>(fn: KeyedFunction<K, (ctx: C) => R>): KeyedFunction<K, (ctx: C) => R> =>
+  Object.assign(fn, { mutable: true })
 
 export function klubok<K1 extends string, C extends object, R1>(
   fn1: KeyedFunction<K1, (ctx: C) => Promise<R1> | R1>
@@ -568,7 +571,7 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
       mock == null && only == null
         ? (acc, fn) =>
             acc.then(ctx =>
-              Reflect.has(ctx, fn.key)
+              !fn.mutable && Reflect.has(ctx, fn.key)
                 ? Promise.reject(
                     new Error(`Try to override existing alias "${fn.key}". Let's rename alias or use "mut" wrapper`)
                   )
@@ -576,7 +579,7 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
             )
         : (acc, fn) =>
             acc.then(ctx =>
-              Reflect.has(ctx, fn.key) && !Reflect.has(mock ?? {}, fn.key)
+              !fn.mutable && Reflect.has(ctx, fn.key) && !Reflect.has(mock ?? {}, fn.key)
                 ? Promise.reject(
                     new Error(`Try to override existing alias "${fn.key}". Let's rename alias or use "mut" wrapper`)
                   )
