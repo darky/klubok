@@ -17,17 +17,21 @@ const catsBirthdays = klubok(
   eff('saved', async ({ catsOneYearOld }) => { /* save to DB */ })
 )
 
-catsBirthdays({ ids: [1, 2, 3] }) // production implementation
+// production usage
+catsBirthdays({ ids: [1, 2, 3] })
 
+// in tests usage
 catsBirthdays(
   { ids: [1, 2, 3] },
   {
-    cats: [ // DB response mock, can be function
+    // DB response mock
+    cats: () => [
       { name: 'Barsik', age: 10 },
       { name: 'Marfa', age: 7 }
     ]
   },
-  ['catsOneYearOld'] // call only this functions
+  // call only this functions
+  ['catsOneYearOld']
 ) // Promise<{ ..., catsOneYearOld: [{ name: 'Barsik', age: 11 }, { name: 'Marfa', age: 8 }] }>
 
 ```
