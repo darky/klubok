@@ -565,6 +565,1386 @@ export function klubok<
     [k in K10]: R10
   }
 >
+export function klubok<
+  K1 extends string,
+  K2 extends string,
+  K3 extends string,
+  K4 extends string,
+  K5 extends string,
+  K6 extends string,
+  K7 extends string,
+  K8 extends string,
+  K9 extends string,
+  K10 extends string,
+  K11 extends string,
+  C extends object,
+  R1,
+  R2,
+  R3,
+  R4,
+  R5,
+  R6,
+  R7,
+  R8,
+  R9,
+  R10,
+  R11
+>(
+  fn1: KeyedFunction<K1, (ctx: C) => Promise<R1> | R1>,
+  fn2: KeyedFunction<K2, (ctx: C & { [k in K1]: R1 }) => Promise<R2> | R2>,
+  fn3: KeyedFunction<K3, (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => Promise<R3> | R3>,
+  fn4: KeyedFunction<K4, (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => Promise<R4> | R4>,
+  fn5: KeyedFunction<
+    K5,
+    (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => Promise<R5> | R5
+  >,
+  fn6: KeyedFunction<
+    K6,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
+    ) => Promise<R6> | R6
+  >,
+  fn7: KeyedFunction<
+    K7,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      }
+    ) => Promise<R7> | R7
+  >,
+  fn8: KeyedFunction<
+    K8,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      }
+    ) => Promise<R8> | R8
+  >,
+  fn9: KeyedFunction<
+    K9,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      }
+    ) => Promise<R9> | R9
+  >,
+  fn10: KeyedFunction<
+    K10,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      }
+    ) => Promise<R10> | R10
+  >,
+  fn11: KeyedFunction<
+    K11,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      } & {
+        [k in K10]: R10
+      }
+    ) => Promise<R11> | R11
+  >
+): (
+  ctx: C,
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
+  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
+    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  } & {
+    [k in K6]?:
+      | R6
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
+        ) => R6)
+  } & {
+    [k in K7]?:
+      | R7
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          }
+        ) => R7)
+  } & {
+    [k in K8]?:
+      | R8
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          }
+        ) => R8)
+  } & {
+    [k in K9]?:
+      | R9
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          }
+        ) => R9)
+  } & {
+    [k in K10]?:
+      | R10
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          }
+        ) => R10)
+  } & {
+    [k in K11]?:
+      | R11
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          } & {
+            [k in K10]: R10
+          }
+        ) => R11)
+  },
+  only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11)[]
+) => Promise<
+  C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+    [k in K6]: R6
+  } & {
+    [k in K7]: R7
+  } & {
+    [k in K8]: R8
+  } & {
+    [k in K9]: R9
+  } & {
+    [k in K10]: R10
+  } & {
+    [k in K11]: R11
+  }
+>
+export function klubok<
+  K1 extends string,
+  K2 extends string,
+  K3 extends string,
+  K4 extends string,
+  K5 extends string,
+  K6 extends string,
+  K7 extends string,
+  K8 extends string,
+  K9 extends string,
+  K10 extends string,
+  K11 extends string,
+  K12 extends string,
+  C extends object,
+  R1,
+  R2,
+  R3,
+  R4,
+  R5,
+  R6,
+  R7,
+  R8,
+  R9,
+  R10,
+  R11,
+  R12
+>(
+  fn1: KeyedFunction<K1, (ctx: C) => Promise<R1> | R1>,
+  fn2: KeyedFunction<K2, (ctx: C & { [k in K1]: R1 }) => Promise<R2> | R2>,
+  fn3: KeyedFunction<K3, (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => Promise<R3> | R3>,
+  fn4: KeyedFunction<K4, (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => Promise<R4> | R4>,
+  fn5: KeyedFunction<
+    K5,
+    (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => Promise<R5> | R5
+  >,
+  fn6: KeyedFunction<
+    K6,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
+    ) => Promise<R6> | R6
+  >,
+  fn7: KeyedFunction<
+    K7,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      }
+    ) => Promise<R7> | R7
+  >,
+  fn8: KeyedFunction<
+    K8,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      }
+    ) => Promise<R8> | R8
+  >,
+  fn9: KeyedFunction<
+    K9,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      }
+    ) => Promise<R9> | R9
+  >,
+  fn10: KeyedFunction<
+    K10,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      }
+    ) => Promise<R10> | R10
+  >,
+  fn11: KeyedFunction<
+    K11,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      } & {
+        [k in K10]: R10
+      }
+    ) => Promise<R11> | R11
+  >,
+  fn12: KeyedFunction<
+    K12,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      } & {
+        [k in K10]: R10
+      } & {
+        [k in K11]: R11
+      }
+    ) => Promise<R12> | R12
+  >
+): (
+  ctx: C,
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
+  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
+    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  } & {
+    [k in K6]?:
+      | R6
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
+        ) => R6)
+  } & {
+    [k in K7]?:
+      | R7
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          }
+        ) => R7)
+  } & {
+    [k in K8]?:
+      | R8
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          }
+        ) => R8)
+  } & {
+    [k in K9]?:
+      | R9
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          }
+        ) => R9)
+  } & {
+    [k in K10]?:
+      | R10
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          }
+        ) => R10)
+  } & {
+    [k in K11]?:
+      | R11
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          } & {
+            [k in K10]: R10
+          }
+        ) => R11)
+  } & {
+    [k in K12]?:
+      | R12
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          } & {
+            [k in K10]: R10
+          } & {
+            [k in K11]: R11
+          }
+        ) => R12)
+  },
+  only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12)[]
+) => Promise<
+  C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+    [k in K6]: R6
+  } & {
+    [k in K7]: R7
+  } & {
+    [k in K8]: R8
+  } & {
+    [k in K9]: R9
+  } & {
+    [k in K10]: R10
+  } & {
+    [k in K11]: R11
+  } & {
+    [k in K12]: R12
+  }
+>
+export function klubok<
+  K1 extends string,
+  K2 extends string,
+  K3 extends string,
+  K4 extends string,
+  K5 extends string,
+  K6 extends string,
+  K7 extends string,
+  K8 extends string,
+  K9 extends string,
+  K10 extends string,
+  K11 extends string,
+  K12 extends string,
+  K13 extends string,
+  C extends object,
+  R1,
+  R2,
+  R3,
+  R4,
+  R5,
+  R6,
+  R7,
+  R8,
+  R9,
+  R10,
+  R11,
+  R12,
+  R13
+>(
+  fn1: KeyedFunction<K1, (ctx: C) => Promise<R1> | R1>,
+  fn2: KeyedFunction<K2, (ctx: C & { [k in K1]: R1 }) => Promise<R2> | R2>,
+  fn3: KeyedFunction<K3, (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => Promise<R3> | R3>,
+  fn4: KeyedFunction<K4, (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => Promise<R4> | R4>,
+  fn5: KeyedFunction<
+    K5,
+    (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => Promise<R5> | R5
+  >,
+  fn6: KeyedFunction<
+    K6,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
+    ) => Promise<R6> | R6
+  >,
+  fn7: KeyedFunction<
+    K7,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      }
+    ) => Promise<R7> | R7
+  >,
+  fn8: KeyedFunction<
+    K8,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      }
+    ) => Promise<R8> | R8
+  >,
+  fn9: KeyedFunction<
+    K9,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      }
+    ) => Promise<R9> | R9
+  >,
+  fn10: KeyedFunction<
+    K10,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      }
+    ) => Promise<R10> | R10
+  >,
+  fn11: KeyedFunction<
+    K11,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      } & {
+        [k in K10]: R10
+      }
+    ) => Promise<R11> | R11
+  >,
+  fn12: KeyedFunction<
+    K12,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      } & {
+        [k in K10]: R10
+      } & {
+        [k in K11]: R11
+      }
+    ) => Promise<R12> | R12
+  >,
+  fn13: KeyedFunction<
+    K13,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      } & {
+        [k in K10]: R10
+      } & {
+        [k in K11]: R11
+      } & {
+        [k in K12]: R12
+      }
+    ) => Promise<R13> | R13
+  >
+): (
+  ctx: C,
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
+  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
+    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  } & {
+    [k in K6]?:
+      | R6
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
+        ) => R6)
+  } & {
+    [k in K7]?:
+      | R7
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          }
+        ) => R7)
+  } & {
+    [k in K8]?:
+      | R8
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          }
+        ) => R8)
+  } & {
+    [k in K9]?:
+      | R9
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          }
+        ) => R9)
+  } & {
+    [k in K10]?:
+      | R10
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          }
+        ) => R10)
+  } & {
+    [k in K11]?:
+      | R11
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          } & {
+            [k in K10]: R10
+          }
+        ) => R11)
+  } & {
+    [k in K12]?:
+      | R12
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          } & {
+            [k in K10]: R10
+          } & {
+            [k in K11]: R11
+          }
+        ) => R12)
+  } & {
+    [k in K13]?:
+      | R13
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          } & {
+            [k in K10]: R10
+          } & {
+            [k in K11]: R11
+          } & {
+            [k in K12]: R12
+          }
+        ) => R13)
+  },
+  only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13)[]
+) => Promise<
+  C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+    [k in K6]: R6
+  } & {
+    [k in K7]: R7
+  } & {
+    [k in K8]: R8
+  } & {
+    [k in K9]: R9
+  } & {
+    [k in K10]: R10
+  } & {
+    [k in K11]: R11
+  } & {
+    [k in K12]: R12
+  } & {
+    [k in K13]: R13
+  }
+>
+export function klubok<
+  K1 extends string,
+  K2 extends string,
+  K3 extends string,
+  K4 extends string,
+  K5 extends string,
+  K6 extends string,
+  K7 extends string,
+  K8 extends string,
+  K9 extends string,
+  K10 extends string,
+  K11 extends string,
+  K12 extends string,
+  K13 extends string,
+  K14 extends string,
+  C extends object,
+  R1,
+  R2,
+  R3,
+  R4,
+  R5,
+  R6,
+  R7,
+  R8,
+  R9,
+  R10,
+  R11,
+  R12,
+  R13,
+  R14
+>(
+  fn1: KeyedFunction<K1, (ctx: C) => Promise<R1> | R1>,
+  fn2: KeyedFunction<K2, (ctx: C & { [k in K1]: R1 }) => Promise<R2> | R2>,
+  fn3: KeyedFunction<K3, (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => Promise<R3> | R3>,
+  fn4: KeyedFunction<K4, (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => Promise<R4> | R4>,
+  fn5: KeyedFunction<
+    K5,
+    (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => Promise<R5> | R5
+  >,
+  fn6: KeyedFunction<
+    K6,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
+    ) => Promise<R6> | R6
+  >,
+  fn7: KeyedFunction<
+    K7,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      }
+    ) => Promise<R7> | R7
+  >,
+  fn8: KeyedFunction<
+    K8,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      }
+    ) => Promise<R8> | R8
+  >,
+  fn9: KeyedFunction<
+    K9,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      }
+    ) => Promise<R9> | R9
+  >,
+  fn10: KeyedFunction<
+    K10,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      }
+    ) => Promise<R10> | R10
+  >,
+  fn11: KeyedFunction<
+    K11,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      } & {
+        [k in K10]: R10
+      }
+    ) => Promise<R11> | R11
+  >,
+  fn12: KeyedFunction<
+    K12,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      } & {
+        [k in K10]: R10
+      } & {
+        [k in K11]: R11
+      }
+    ) => Promise<R12> | R12
+  >,
+  fn13: KeyedFunction<
+    K13,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      } & {
+        [k in K10]: R10
+      } & {
+        [k in K11]: R11
+      } & {
+        [k in K12]: R12
+      }
+    ) => Promise<R13> | R13
+  >,
+  fn14: KeyedFunction<
+    K14,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      } & {
+        [k in K10]: R10
+      } & {
+        [k in K11]: R11
+      } & {
+        [k in K12]: R12
+      } & {
+        [k in K13]: R13
+      }
+    ) => Promise<R14> | R14
+  >
+): (
+  ctx: C,
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
+  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
+    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  } & {
+    [k in K6]?:
+      | R6
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
+        ) => R6)
+  } & {
+    [k in K7]?:
+      | R7
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          }
+        ) => R7)
+  } & {
+    [k in K8]?:
+      | R8
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          }
+        ) => R8)
+  } & {
+    [k in K9]?:
+      | R9
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          }
+        ) => R9)
+  } & {
+    [k in K10]?:
+      | R10
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          }
+        ) => R10)
+  } & {
+    [k in K11]?:
+      | R11
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          } & {
+            [k in K10]: R10
+          }
+        ) => R11)
+  } & {
+    [k in K12]?:
+      | R12
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          } & {
+            [k in K10]: R10
+          } & {
+            [k in K11]: R11
+          }
+        ) => R12)
+  } & {
+    [k in K13]?:
+      | R13
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          } & {
+            [k in K10]: R10
+          } & {
+            [k in K11]: R11
+          } & {
+            [k in K12]: R12
+          }
+        ) => R13)
+  } & {
+    [k in K14]?:
+      | R14
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          } & {
+            [k in K10]: R10
+          } & {
+            [k in K11]: R11
+          } & {
+            [k in K12]: R12
+          } & {
+            [k in K13]: R13
+          }
+        ) => R14)
+  },
+  only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14)[]
+) => Promise<
+  C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+    [k in K6]: R6
+  } & {
+    [k in K7]: R7
+  } & {
+    [k in K8]: R8
+  } & {
+    [k in K9]: R9
+  } & {
+    [k in K10]: R10
+  } & {
+    [k in K11]: R11
+  } & {
+    [k in K12]: R12
+  } & {
+    [k in K13]: R13
+  } & {
+    [k in K14]: R14
+  }
+>
+export function klubok<
+  K1 extends string,
+  K2 extends string,
+  K3 extends string,
+  K4 extends string,
+  K5 extends string,
+  K6 extends string,
+  K7 extends string,
+  K8 extends string,
+  K9 extends string,
+  K10 extends string,
+  K11 extends string,
+  K12 extends string,
+  K13 extends string,
+  K14 extends string,
+  K15 extends string,
+  C extends object,
+  R1,
+  R2,
+  R3,
+  R4,
+  R5,
+  R6,
+  R7,
+  R8,
+  R9,
+  R10,
+  R11,
+  R12,
+  R13,
+  R14,
+  R15
+>(
+  fn1: KeyedFunction<K1, (ctx: C) => Promise<R1> | R1>,
+  fn2: KeyedFunction<K2, (ctx: C & { [k in K1]: R1 }) => Promise<R2> | R2>,
+  fn3: KeyedFunction<K3, (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => Promise<R3> | R3>,
+  fn4: KeyedFunction<K4, (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => Promise<R4> | R4>,
+  fn5: KeyedFunction<
+    K5,
+    (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => Promise<R5> | R5
+  >,
+  fn6: KeyedFunction<
+    K6,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
+    ) => Promise<R6> | R6
+  >,
+  fn7: KeyedFunction<
+    K7,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      }
+    ) => Promise<R7> | R7
+  >,
+  fn8: KeyedFunction<
+    K8,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      }
+    ) => Promise<R8> | R8
+  >,
+  fn9: KeyedFunction<
+    K9,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      }
+    ) => Promise<R9> | R9
+  >,
+  fn10: KeyedFunction<
+    K10,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      }
+    ) => Promise<R10> | R10
+  >,
+  fn11: KeyedFunction<
+    K11,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      } & {
+        [k in K10]: R10
+      }
+    ) => Promise<R11> | R11
+  >,
+  fn12: KeyedFunction<
+    K12,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      } & {
+        [k in K10]: R10
+      } & {
+        [k in K11]: R11
+      }
+    ) => Promise<R12> | R12
+  >,
+  fn13: KeyedFunction<
+    K13,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      } & {
+        [k in K10]: R10
+      } & {
+        [k in K11]: R11
+      } & {
+        [k in K12]: R12
+      }
+    ) => Promise<R13> | R13
+  >,
+  fn14: KeyedFunction<
+    K14,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      } & {
+        [k in K10]: R10
+      } & {
+        [k in K11]: R11
+      } & {
+        [k in K12]: R12
+      } & {
+        [k in K13]: R13
+      }
+    ) => Promise<R14> | R14
+  >,
+  fn15: KeyedFunction<
+    K15,
+    (
+      ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+        [k in K6]: R6
+      } & {
+        [k in K7]: R7
+      } & {
+        [k in K8]: R8
+      } & {
+        [k in K9]: R9
+      } & {
+        [k in K10]: R10
+      } & {
+        [k in K11]: R11
+      } & {
+        [k in K12]: R12
+      } & {
+        [k in K13]: R13
+      } & {
+        [k in K14]: R14
+      }
+    ) => Promise<R15> | R15
+  >
+): (
+  ctx: C,
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
+  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
+    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  } & {
+    [k in K6]?:
+      | R6
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
+        ) => R6)
+  } & {
+    [k in K7]?:
+      | R7
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          }
+        ) => R7)
+  } & {
+    [k in K8]?:
+      | R8
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          }
+        ) => R8)
+  } & {
+    [k in K9]?:
+      | R9
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          }
+        ) => R9)
+  } & {
+    [k in K10]?:
+      | R10
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          }
+        ) => R10)
+  } & {
+    [k in K11]?:
+      | R11
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          } & {
+            [k in K10]: R10
+          }
+        ) => R11)
+  } & {
+    [k in K12]?:
+      | R12
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          } & {
+            [k in K10]: R10
+          } & {
+            [k in K11]: R11
+          }
+        ) => R12)
+  } & {
+    [k in K13]?:
+      | R13
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          } & {
+            [k in K10]: R10
+          } & {
+            [k in K11]: R11
+          } & {
+            [k in K12]: R12
+          }
+        ) => R13)
+  } & {
+    [k in K14]?:
+      | R14
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          } & {
+            [k in K10]: R10
+          } & {
+            [k in K11]: R11
+          } & {
+            [k in K12]: R12
+          } & {
+            [k in K13]: R13
+          }
+        ) => R14)
+  } & {
+    [k in K15]?:
+      | R15
+      | ((
+          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+            [k in K6]: R6
+          } & {
+            [k in K7]: R7
+          } & {
+            [k in K8]: R8
+          } & {
+            [k in K9]: R9
+          } & {
+            [k in K10]: R10
+          } & {
+            [k in K11]: R11
+          } & {
+            [k in K12]: R12
+          } & {
+            [k in K13]: R13
+          } & {
+            [k in K14]: R14
+          }
+        ) => R15)
+  },
+  only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15)[]
+) => Promise<
+  C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
+    [k in K6]: R6
+  } & {
+    [k in K7]: R7
+  } & {
+    [k in K8]: R8
+  } & {
+    [k in K9]: R9
+  } & {
+    [k in K10]: R10
+  } & {
+    [k in K11]: R11
+  } & {
+    [k in K12]: R12
+  } & {
+    [k in K13]: R13
+  } & {
+    [k in K14]: R14
+  } & {
+    [k in K15]: R15
+  }
+>
 export function klubok(...fns: KeyedFunction<string, Function>[]) {
   return (rootCtx = {}, mock?: object, only?: string[]) =>
     fns.reduce(
