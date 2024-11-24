@@ -13,7 +13,9 @@ import { pure, eff, klubok } from 'klubok';
 
 const catsBirthdays = klubok(
   eff('cats', async ({ ids }: { ids: number[] }) => { /* fetch cats from DB */ }),
-  pure('catsOneYearOld', ({ cats }) => cats.map(c => ({ ...c, age: c.age + 1 })),
+
+  pure('catsOneYearOld', ({ cats }) => cats.map(cat => ({ ...cat, age: cat.age + 1 })),
+
   eff('saved', async ({ catsOneYearOld }) => { /* save to DB */ })
 )
 
@@ -23,6 +25,7 @@ catsBirthdays({ ids: [1, 2, 3] })
 // in tests usage
 catsBirthdays(
   { ids: [1, 2, 3] },
+
   {
     // DB response mock
     cats: () => [
@@ -30,9 +33,10 @@ catsBirthdays(
       { name: 'Marfa', age: 7 }
     ]
   },
+
   // call only this functions
   ['catsOneYearOld']
+
 ) // Promise<{ ..., catsOneYearOld: [{ name: 'Barsik', age: 11 }, { name: 'Marfa', age: 8 }] }>
 
 ```
-
