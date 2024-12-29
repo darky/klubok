@@ -40,3 +40,7 @@ catsBirthdays(
 ) // Promise<{ ..., catsOneYearOld: [{ name: 'Barsik', age: 11 }, { name: 'Marfa', age: 8 }] }>
 
 ```
+
+## See also
+
+* [Klubok-Gleam](https://github.com/darky/klubok) - Gleam implementation of Klubok
