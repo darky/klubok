@@ -43,4 +43,4 @@ catsBirthdays(
 
 ## See also
 
-* [Klubok-Gleam](https://github.com/darky/klubok) - Gleam implementation of Klubok
+* [Klubok-Gleam](https://github.com/darky/klubok-gleam) - Gleam implementation of Klubok
