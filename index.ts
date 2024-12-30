@@ -13,13 +13,15 @@ export const mut = <K extends string, C, R>(fn: KeyedFunction<K, (ctx: C) => R>)
 
 export function klubok<K1 extends string, C extends object, R1>(
   fn1: KeyedFunction<K1, (ctx: C) => Promise<R1> | R1>
-): (ctx: C, mock?: { [k in K1]?: R1 | ((ctx: C) => R1) }, only?: K1[]) => Promise<C & { [k in K1]: R1 }>
+): (ctx: C, mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) }, only?: K1[]) => Promise<C & { [k in K1]: R1 }>
 export function klubok<K1 extends string, K2 extends string, C extends object, R1, R2>(
   fn1: KeyedFunction<K1, (ctx: C) => Promise<R1> | R1>,
   fn2: KeyedFunction<K2, (ctx: C & { [k in K1]: R1 }) => Promise<R2> | R2>
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) },
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
+    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+  },
   only?: (K1 | K2)[]
 ) => Promise<C & { [k in K1]: R1 } & { [k in K2]: R2 }>
 export function klubok<K1 extends string, K2 extends string, K3 extends string, C extends object, R1, R2, R3>(
@@ -28,8 +30,10 @@ export function klubok<K1 extends string, K2 extends string, K3 extends string, 
   fn3: KeyedFunction<K3, (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => Promise<R3> | R3>
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
+    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+  } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
   },
   only?: (K1 | K2 | K3)[]
 ) => Promise<C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }>
@@ -50,9 +54,11 @@ export function klubok<
   fn4: KeyedFunction<K4, (ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => Promise<R4> | R4>
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
-  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) },
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
+    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+  } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
+  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>) },
   only?: (K1 | K2 | K3 | K4)[]
 ) => Promise<C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }>
 export function klubok<
@@ -78,10 +84,16 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
-  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
-    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
+    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+  } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
+  } & {
+    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
+  } & {
+    [k in K5]?:
+      | R5
+      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
   },
   only?: (K1 | K2 | K3 | K4 | K5)[]
 ) => Promise<C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }>
@@ -116,16 +128,22 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
-  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
-    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
+    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+  } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
+  } & {
+    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
+  } & {
+    [k in K5]?:
+      | R5
+      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
   } & {
     [k in K6]?:
       | R6
       | ((
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
-        ) => R6)
+        ) => R6 | Promise<R6>)
   },
   only?: (K1 | K2 | K3 | K4 | K5 | K6)[]
 ) => Promise<
@@ -174,16 +192,22 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
-  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
-    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
+    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+  } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
+  } & {
+    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
+  } & {
+    [k in K5]?:
+      | R5
+      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
   } & {
     [k in K6]?:
       | R6
       | ((
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
-        ) => R6)
+        ) => R6 | Promise<R6>)
   } & {
     [k in K7]?:
       | R7
@@ -191,7 +215,7 @@ export function klubok<
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
             [k in K6]: R6
           }
-        ) => R7)
+        ) => R7 | Promise<R7>)
   },
   only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7)[]
 ) => Promise<
@@ -254,16 +278,22 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
-  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
-    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
+    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+  } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
+  } & {
+    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
+  } & {
+    [k in K5]?:
+      | R5
+      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
   } & {
     [k in K6]?:
       | R6
       | ((
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
-        ) => R6)
+        ) => R6 | Promise<R6>)
   } & {
     [k in K7]?:
       | R7
@@ -271,7 +301,7 @@ export function klubok<
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
             [k in K6]: R6
           }
-        ) => R7)
+        ) => R7 | Promise<R7>)
   } & {
     [k in K8]?:
       | R8
@@ -281,7 +311,7 @@ export function klubok<
           } & {
             [k in K7]: R7
           }
-        ) => R8)
+        ) => R8 | Promise<R8>)
   },
   only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8)[]
 ) => Promise<
@@ -360,16 +390,22 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
-  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
-    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
+    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+  } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
+  } & {
+    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
+  } & {
+    [k in K5]?:
+      | R5
+      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
   } & {
     [k in K6]?:
       | R6
       | ((
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
-        ) => R6)
+        ) => R6 | Promise<R6>)
   } & {
     [k in K7]?:
       | R7
@@ -377,7 +413,7 @@ export function klubok<
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
             [k in K6]: R6
           }
-        ) => R7)
+        ) => R7 | Promise<R7>)
   } & {
     [k in K8]?:
       | R8
@@ -387,7 +423,7 @@ export function klubok<
           } & {
             [k in K7]: R7
           }
-        ) => R8)
+        ) => R8 | Promise<R8>)
   } & {
     [k in K9]?:
       | R9
@@ -399,7 +435,7 @@ export function klubok<
           } & {
             [k in K8]: R8
           }
-        ) => R9)
+        ) => R9 | Promise<R9>)
   },
   only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9)[]
 ) => Promise<
@@ -496,16 +532,22 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
-  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
-    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
+    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+  } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
+  } & {
+    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
+  } & {
+    [k in K5]?:
+      | R5
+      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
   } & {
     [k in K6]?:
       | R6
       | ((
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
-        ) => R6)
+        ) => R6 | Promise<R6>)
   } & {
     [k in K7]?:
       | R7
@@ -513,7 +555,7 @@ export function klubok<
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
             [k in K6]: R6
           }
-        ) => R7)
+        ) => R7 | Promise<R7>)
   } & {
     [k in K8]?:
       | R8
@@ -523,7 +565,7 @@ export function klubok<
           } & {
             [k in K7]: R7
           }
-        ) => R8)
+        ) => R8 | Promise<R8>)
   } & {
     [k in K9]?:
       | R9
@@ -535,7 +577,7 @@ export function klubok<
           } & {
             [k in K8]: R8
           }
-        ) => R9)
+        ) => R9 | Promise<R9>)
   } & {
     [k in K10]?:
       | R10
@@ -549,7 +591,7 @@ export function klubok<
           } & {
             [k in K9]: R9
           }
-        ) => R10)
+        ) => R10 | Promise<R10>)
   },
   only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10)[]
 ) => Promise<
@@ -666,16 +708,22 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
-  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
-    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
+    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+  } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
+  } & {
+    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
+  } & {
+    [k in K5]?:
+      | R5
+      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
   } & {
     [k in K6]?:
       | R6
       | ((
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
-        ) => R6)
+        ) => R6 | Promise<R6>)
   } & {
     [k in K7]?:
       | R7
@@ -683,7 +731,7 @@ export function klubok<
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
             [k in K6]: R6
           }
-        ) => R7)
+        ) => R7 | Promise<R7>)
   } & {
     [k in K8]?:
       | R8
@@ -693,7 +741,7 @@ export function klubok<
           } & {
             [k in K7]: R7
           }
-        ) => R8)
+        ) => R8 | Promise<R8>)
   } & {
     [k in K9]?:
       | R9
@@ -705,7 +753,7 @@ export function klubok<
           } & {
             [k in K8]: R8
           }
-        ) => R9)
+        ) => R9 | Promise<R9>)
   } & {
     [k in K10]?:
       | R10
@@ -719,7 +767,7 @@ export function klubok<
           } & {
             [k in K9]: R9
           }
-        ) => R10)
+        ) => R10 | Promise<R10>)
   } & {
     [k in K11]?:
       | R11
@@ -735,7 +783,7 @@ export function klubok<
           } & {
             [k in K10]: R10
           }
-        ) => R11)
+        ) => R11 | Promise<R11>)
   },
   only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11)[]
 ) => Promise<
@@ -874,16 +922,22 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
-  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
-    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
+    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+  } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
+  } & {
+    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
+  } & {
+    [k in K5]?:
+      | R5
+      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
   } & {
     [k in K6]?:
       | R6
       | ((
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
-        ) => R6)
+        ) => R6 | Promise<R6>)
   } & {
     [k in K7]?:
       | R7
@@ -891,7 +945,7 @@ export function klubok<
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
             [k in K6]: R6
           }
-        ) => R7)
+        ) => R7 | Promise<R7>)
   } & {
     [k in K8]?:
       | R8
@@ -901,7 +955,7 @@ export function klubok<
           } & {
             [k in K7]: R7
           }
-        ) => R8)
+        ) => R8 | Promise<R8>)
   } & {
     [k in K9]?:
       | R9
@@ -913,7 +967,7 @@ export function klubok<
           } & {
             [k in K8]: R8
           }
-        ) => R9)
+        ) => R9 | Promise<R9>)
   } & {
     [k in K10]?:
       | R10
@@ -927,7 +981,7 @@ export function klubok<
           } & {
             [k in K9]: R9
           }
-        ) => R10)
+        ) => R10 | Promise<R10>)
   } & {
     [k in K11]?:
       | R11
@@ -943,7 +997,7 @@ export function klubok<
           } & {
             [k in K10]: R10
           }
-        ) => R11)
+        ) => R11 | Promise<R11>)
   } & {
     [k in K12]?:
       | R12
@@ -961,7 +1015,7 @@ export function klubok<
           } & {
             [k in K11]: R11
           }
-        ) => R12)
+        ) => R12 | Promise<R12>)
   },
   only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12)[]
 ) => Promise<
@@ -1124,16 +1178,22 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
-  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
-    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
+    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+  } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
+  } & {
+    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
+  } & {
+    [k in K5]?:
+      | R5
+      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
   } & {
     [k in K6]?:
       | R6
       | ((
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
-        ) => R6)
+        ) => R6 | Promise<R6>)
   } & {
     [k in K7]?:
       | R7
@@ -1141,7 +1201,7 @@ export function klubok<
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
             [k in K6]: R6
           }
-        ) => R7)
+        ) => R7 | Promise<R7>)
   } & {
     [k in K8]?:
       | R8
@@ -1151,7 +1211,7 @@ export function klubok<
           } & {
             [k in K7]: R7
           }
-        ) => R8)
+        ) => R8 | Promise<R8>)
   } & {
     [k in K9]?:
       | R9
@@ -1163,7 +1223,7 @@ export function klubok<
           } & {
             [k in K8]: R8
           }
-        ) => R9)
+        ) => R9 | Promise<R9>)
   } & {
     [k in K10]?:
       | R10
@@ -1177,7 +1237,7 @@ export function klubok<
           } & {
             [k in K9]: R9
           }
-        ) => R10)
+        ) => R10 | Promise<R10>)
   } & {
     [k in K11]?:
       | R11
@@ -1193,7 +1253,7 @@ export function klubok<
           } & {
             [k in K10]: R10
           }
-        ) => R11)
+        ) => R11 | Promise<R11>)
   } & {
     [k in K12]?:
       | R12
@@ -1211,7 +1271,7 @@ export function klubok<
           } & {
             [k in K11]: R11
           }
-        ) => R12)
+        ) => R12 | Promise<R12>)
   } & {
     [k in K13]?:
       | R13
@@ -1231,7 +1291,7 @@ export function klubok<
           } & {
             [k in K12]: R12
           }
-        ) => R13)
+        ) => R13 | Promise<R13>)
   },
   only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13)[]
 ) => Promise<
@@ -1420,16 +1480,22 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
-  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
-    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
+    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+  } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
+  } & {
+    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
+  } & {
+    [k in K5]?:
+      | R5
+      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
   } & {
     [k in K6]?:
       | R6
       | ((
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
-        ) => R6)
+        ) => R6 | Promise<R6>)
   } & {
     [k in K7]?:
       | R7
@@ -1437,7 +1503,7 @@ export function klubok<
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
             [k in K6]: R6
           }
-        ) => R7)
+        ) => R7 | Promise<R7>)
   } & {
     [k in K8]?:
       | R8
@@ -1447,7 +1513,7 @@ export function klubok<
           } & {
             [k in K7]: R7
           }
-        ) => R8)
+        ) => R8 | Promise<R8>)
   } & {
     [k in K9]?:
       | R9
@@ -1459,7 +1525,7 @@ export function klubok<
           } & {
             [k in K8]: R8
           }
-        ) => R9)
+        ) => R9 | Promise<R9>)
   } & {
     [k in K10]?:
       | R10
@@ -1473,7 +1539,7 @@ export function klubok<
           } & {
             [k in K9]: R9
           }
-        ) => R10)
+        ) => R10 | Promise<R10>)
   } & {
     [k in K11]?:
       | R11
@@ -1489,7 +1555,7 @@ export function klubok<
           } & {
             [k in K10]: R10
           }
-        ) => R11)
+        ) => R11 | Promise<R11>)
   } & {
     [k in K12]?:
       | R12
@@ -1507,7 +1573,7 @@ export function klubok<
           } & {
             [k in K11]: R11
           }
-        ) => R12)
+        ) => R12 | Promise<R12>)
   } & {
     [k in K13]?:
       | R13
@@ -1527,7 +1593,7 @@ export function klubok<
           } & {
             [k in K12]: R12
           }
-        ) => R13)
+        ) => R13 | Promise<R13>)
   } & {
     [k in K14]?:
       | R14
@@ -1549,7 +1615,7 @@ export function klubok<
           } & {
             [k in K13]: R13
           }
-        ) => R14)
+        ) => R14 | Promise<R14>)
   },
   only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14)[]
 ) => Promise<
@@ -1766,16 +1832,22 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1) } & { [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2) } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3)
-  } & { [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4) } & {
-    [k in K5]?: R5 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5)
+  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
+    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+  } & {
+    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
+  } & {
+    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
+  } & {
+    [k in K5]?:
+      | R5
+      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
   } & {
     [k in K6]?:
       | R6
       | ((
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
-        ) => R6)
+        ) => R6 | Promise<R6>)
   } & {
     [k in K7]?:
       | R7
@@ -1783,7 +1855,7 @@ export function klubok<
           ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
             [k in K6]: R6
           }
-        ) => R7)
+        ) => R7 | Promise<R7>)
   } & {
     [k in K8]?:
       | R8
@@ -1793,7 +1865,7 @@ export function klubok<
           } & {
             [k in K7]: R7
           }
-        ) => R8)
+        ) => R8 | Promise<R8>)
   } & {
     [k in K9]?:
       | R9
@@ -1805,7 +1877,7 @@ export function klubok<
           } & {
             [k in K8]: R8
           }
-        ) => R9)
+        ) => R9 | Promise<R9>)
   } & {
     [k in K10]?:
       | R10
@@ -1819,7 +1891,7 @@ export function klubok<
           } & {
             [k in K9]: R9
           }
-        ) => R10)
+        ) => R10 | Promise<R10>)
   } & {
     [k in K11]?:
       | R11
@@ -1835,7 +1907,7 @@ export function klubok<
           } & {
             [k in K10]: R10
           }
-        ) => R11)
+        ) => R11 | Promise<R11>)
   } & {
     [k in K12]?:
       | R12
@@ -1853,7 +1925,7 @@ export function klubok<
           } & {
             [k in K11]: R11
           }
-        ) => R12)
+        ) => R12 | Promise<R12>)
   } & {
     [k in K13]?:
       | R13
@@ -1873,7 +1945,7 @@ export function klubok<
           } & {
             [k in K12]: R12
           }
-        ) => R13)
+        ) => R13 | Promise<R13>)
   } & {
     [k in K14]?:
       | R14
@@ -1895,7 +1967,7 @@ export function klubok<
           } & {
             [k in K13]: R13
           }
-        ) => R14)
+        ) => R14 | Promise<R14>)
   } & {
     [k in K15]?:
       | R15
@@ -1919,7 +1991,7 @@ export function klubok<
           } & {
             [k in K14]: R14
           }
-        ) => R15)
+        ) => R15 | Promise<R15>)
   },
   only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15)[]
 ) => Promise<
