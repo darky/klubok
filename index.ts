@@ -4793,7 +4793,28 @@ export function klubok<
           }
         ) => R20 | Promise<R20>)
   },
-  only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15 | K16 | K17 | K18 | K19 | K20)[]
+  only?: (
+    | K1
+    | K2
+    | K3
+    | K4
+    | K5
+    | K6
+    | K7
+    | K8
+    | K9
+    | K10
+    | K11
+    | K12
+    | K13
+    | K14
+    | K15
+    | K16
+    | K17
+    | K18
+    | K19
+    | K20
+  )[]
 ) => Promise<
   C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
     [k in K6]: R6
@@ -4837,7 +4858,16 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
                 ? Promise.reject(
                     new Error(`Try to override existing alias "${fn.key}". Let's rename alias or use "mut" wrapper`)
                   )
-                : Promise.resolve(fn(ctx)).then(resp => ({ ...ctx, [fn.key]: resp }))
+                : (async () => {
+                    try {
+                      return await Promise.resolve(fn(ctx)).then(resp => ({ ...ctx, [fn.key]: resp }))
+                    } catch (error: any) {
+                      throw {
+                        error: error.stack ?? error.message ?? error,
+                        ctx
+                      }
+                    }
+                  })()
             )
         : (acc, fn) =>
             acc.then(ctx =>
@@ -4848,11 +4878,20 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
                 : (mock && Reflect.has(mock, fn.key) && typeof Reflect.get(mock, fn.key) !== 'function') ||
                   (only && only.length && !only.includes(fn.key))
                 ? ctx
-                : Promise.resolve(
-                    mock && Reflect.has(mock, fn.key) && typeof Reflect.get(mock, fn.key) === 'function'
-                      ? Reflect.get(mock, fn.key)(ctx)
-                      : fn(ctx)
-                  ).then(resp => ({ ...ctx, [fn.key]: resp }))
+                : (async () => {
+                  try {
+                    return await Promise.resolve(
+                      mock && Reflect.has(mock, fn.key) && typeof Reflect.get(mock, fn.key) === 'function'
+                        ? Reflect.get(mock, fn.key)(ctx)
+                        : fn(ctx)
+                    ).then(resp => ({ ...ctx, [fn.key]: resp }))
+                  } catch(error: any) {
+                    throw {
+                      error: error.stack ?? error.message ?? error,
+                      ctx
+                    }
+                  }
+                })()
             ),
       Promise.resolve({ ...rootCtx, ...mock })
     )

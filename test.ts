@@ -327,3 +327,29 @@ test('overriding of alias should be allowed if marked as mutable when pass mock 
     strNumber: 'string - 2',
   })
 })
+
+test('throwable error with context for production fn', async () => {
+  const fn = klubok(
+    pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
+    pure('strNumber', ({ incNumber }) => incNumber.toString()),
+    eff('throwable', () => {
+      throw new Error('test')
+    })
+  )
+  const err = await fn({ number: 1 }).catch(e => e)
+  assert.match(err.error, /^Error: test/)
+  assert.deepStrictEqual(err.ctx, { number: 1, incNumber: 2, strNumber: '2' })
+})
+
+test('throwable error with context for test fn', async () => {
+  const fn = klubok(
+    pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
+    pure('strNumber', ({ incNumber }) => incNumber.toString()),
+    eff('throwable', () => {
+      throw new Error('test')
+    })
+  )
+  const err = await fn({ number: 1 }, {}, []).catch(e => e)
+  assert.match(err.error, /^Error: test/)
+  assert.deepStrictEqual(err.ctx, { number: 1, incNumber: 2, strNumber: '2' })
+})
