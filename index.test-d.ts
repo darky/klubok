@@ -1234,3 +1234,1080 @@ expectType<
     pure('numbersArrayLength', ({ numbersArray }) => numbersArray.length)
   )
 )
+
+expectType<
+  (
+    ctx: { number: number },
+    mock?:
+      | ({ incNumber?: number | ((ctx: { number: number }) => number | Promise<number>) } & {
+          strNumber?: string | ((ctx: { number: number } & { incNumber: number }) => string | Promise<string>)
+        } & {
+          strLength?:
+            | number
+            | ((ctx: { number: number } & { incNumber: number } & { strNumber: string }) => number | Promise<number>)
+        } & {
+          strLengthPositive?:
+            | boolean
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number }
+              ) => boolean | Promise<boolean>)
+        } & {
+          sum?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                }
+              ) => number | Promise<number>)
+        } & {
+          numbersArray?:
+            | number[]
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number }
+              ) => number[] | Promise<number[]>)
+        } & {
+          arrLength?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] }
+              ) => number | Promise<number>)
+        } & {
+          isMocked?:
+            | boolean
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number }
+              ) => boolean | Promise<boolean>)
+        } & {
+          nullHere?:
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean }
+              ) => Promise<null> | null)
+            | null
+        } & {
+          voidHere?:
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                }
+              ) => Promise<undefined> | undefined)
+            | undefined
+        } & {
+          arraySum?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined }
+              ) => number | Promise<number>)
+        } & {
+          strConcat?:
+            | string
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number }
+              ) => string | Promise<string>)
+        } & {
+          sumOfSums?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string }
+              ) => number | Promise<number>)
+        } & {
+          objectifySum?:
+            | { arraySum: number; sum: number }
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number }
+              ) => { arraySum: number; sum: number } | Promise<{ arraySum: number; sum: number }>)
+        } & {
+          numbersArrayLength?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                }
+              ) => number | Promise<number>)
+        } & {
+          idealNumber?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                } & { numbersArrayLength: number }
+              ) => number | Promise<number>)
+        })
+      | undefined,
+    only?:
+      | (
+          | 'incNumber'
+          | 'strNumber'
+          | 'strLength'
+          | 'strLengthPositive'
+          | 'sum'
+          | 'numbersArray'
+          | 'arrLength'
+          | 'isMocked'
+          | 'nullHere'
+          | 'voidHere'
+          | 'arraySum'
+          | 'strConcat'
+          | 'sumOfSums'
+          | 'objectifySum'
+          | 'numbersArrayLength'
+          | 'idealNumber'
+        )[]
+      | undefined
+  ) => Promise<
+    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+      strLengthPositive: boolean
+    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      nullHere: null
+    } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+      objectifySum: { arraySum: number; sum: number }
+    } & { numbersArrayLength: number } & { idealNumber: number }
+  >
+>(
+  klubok(
+    pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
+    pure('strNumber', ({ incNumber }) => incNumber.toString()),
+    pure('strLength', ({ strNumber }) => strNumber.length),
+    pure('strLengthPositive', ({ strLength }) => strLength > 0),
+    pure('sum', ({ strLength, incNumber }) => strLength + incNumber),
+    pure('numbersArray', ({ number, incNumber, strLength, sum }) => [number, incNumber, strLength, sum]),
+    pure('arrLength', ({ numbersArray }) => numbersArray.length),
+    pure('isMocked', ({ numbersArray }) => numbersArray.length === 0),
+    pure('nullHere', () => null),
+    pure('voidHere', () => void 0),
+    eff('arraySum', async ({ numbersArray }) => numbersArray.reduce((a, b) => a + b, 0)),
+    pure(
+      'strConcat',
+      ({ strLength, strLengthPositive, strNumber }) => `${strLength} ${strLengthPositive} ${strNumber}`
+    ),
+    pure('sumOfSums', ({ sum, arraySum }) => sum + arraySum),
+    pure('objectifySum', ({ arraySum, sum }) => ({ arraySum, sum })),
+    pure('numbersArrayLength', ({ numbersArray }) => numbersArray.length),
+    pure('idealNumber', ({ numbersArrayLength }) => numbersArrayLength - numbersArrayLength + 73)
+  )
+)
+
+expectType<
+  (
+    ctx: { number: number },
+    mock?:
+      | ({ incNumber?: number | ((ctx: { number: number }) => number | Promise<number>) } & {
+          strNumber?: string | ((ctx: { number: number } & { incNumber: number }) => string | Promise<string>)
+        } & {
+          strLength?:
+            | number
+            | ((ctx: { number: number } & { incNumber: number } & { strNumber: string }) => number | Promise<number>)
+        } & {
+          strLengthPositive?:
+            | boolean
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number }
+              ) => boolean | Promise<boolean>)
+        } & {
+          sum?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                }
+              ) => number | Promise<number>)
+        } & {
+          numbersArray?:
+            | number[]
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number }
+              ) => number[] | Promise<number[]>)
+        } & {
+          arrLength?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] }
+              ) => number | Promise<number>)
+        } & {
+          isMocked?:
+            | boolean
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number }
+              ) => boolean | Promise<boolean>)
+        } & {
+          nullHere?:
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean }
+              ) => Promise<null> | null)
+            | null
+        } & {
+          voidHere?:
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                }
+              ) => Promise<undefined> | undefined)
+            | undefined
+        } & {
+          arraySum?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined }
+              ) => number | Promise<number>)
+        } & {
+          strConcat?:
+            | string
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number }
+              ) => string | Promise<string>)
+        } & {
+          sumOfSums?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string }
+              ) => number | Promise<number>)
+        } & {
+          objectifySum?:
+            | { arraySum: number; sum: number }
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number }
+              ) => { arraySum: number; sum: number } | Promise<{ arraySum: number; sum: number }>)
+        } & {
+          numbersArrayLength?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                }
+              ) => number | Promise<number>)
+        } & {
+          idealNumber?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                } & { numbersArrayLength: number }
+              ) => number | Promise<number>)
+        } & {
+          noMoreIdealNumber?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                } & { numbersArrayLength: number } & { idealNumber: number }
+              ) => number | Promise<number>)
+        })
+      | undefined,
+    only?:
+      | (
+          | 'incNumber'
+          | 'strNumber'
+          | 'strLength'
+          | 'strLengthPositive'
+          | 'sum'
+          | 'numbersArray'
+          | 'arrLength'
+          | 'isMocked'
+          | 'nullHere'
+          | 'voidHere'
+          | 'arraySum'
+          | 'strConcat'
+          | 'sumOfSums'
+          | 'objectifySum'
+          | 'numbersArrayLength'
+          | 'idealNumber'
+          | 'noMoreIdealNumber'
+        )[]
+      | undefined
+  ) => Promise<
+    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+      strLengthPositive: boolean
+    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      nullHere: null
+    } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+      objectifySum: { arraySum: number; sum: number }
+    } & { numbersArrayLength: number } & { idealNumber: number } & { noMoreIdealNumber: number }
+  >
+>(
+  klubok(
+    pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
+    pure('strNumber', ({ incNumber }) => incNumber.toString()),
+    pure('strLength', ({ strNumber }) => strNumber.length),
+    pure('strLengthPositive', ({ strLength }) => strLength > 0),
+    pure('sum', ({ strLength, incNumber }) => strLength + incNumber),
+    pure('numbersArray', ({ number, incNumber, strLength, sum }) => [number, incNumber, strLength, sum]),
+    pure('arrLength', ({ numbersArray }) => numbersArray.length),
+    pure('isMocked', ({ numbersArray }) => numbersArray.length === 0),
+    pure('nullHere', () => null),
+    pure('voidHere', () => void 0),
+    eff('arraySum', async ({ numbersArray }) => numbersArray.reduce((a, b) => a + b, 0)),
+    pure(
+      'strConcat',
+      ({ strLength, strLengthPositive, strNumber }) => `${strLength} ${strLengthPositive} ${strNumber}`
+    ),
+    pure('sumOfSums', ({ sum, arraySum }) => sum + arraySum),
+    pure('objectifySum', ({ arraySum, sum }) => ({ arraySum, sum })),
+    pure('numbersArrayLength', ({ numbersArray }) => numbersArray.length),
+    pure('idealNumber', ({ numbersArrayLength }) => numbersArrayLength - numbersArrayLength + 73),
+    pure('noMoreIdealNumber', ({ idealNumber, sum }) => idealNumber + sum)
+  )
+)
+
+expectType<
+  (
+    ctx: { number: number },
+    mock?:
+      | ({ incNumber?: number | ((ctx: { number: number }) => number | Promise<number>) } & {
+          strNumber?: string | ((ctx: { number: number } & { incNumber: number }) => string | Promise<string>)
+        } & {
+          strLength?:
+            | number
+            | ((ctx: { number: number } & { incNumber: number } & { strNumber: string }) => number | Promise<number>)
+        } & {
+          strLengthPositive?:
+            | boolean
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number }
+              ) => boolean | Promise<boolean>)
+        } & {
+          sum?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                }
+              ) => number | Promise<number>)
+        } & {
+          numbersArray?:
+            | number[]
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number }
+              ) => number[] | Promise<number[]>)
+        } & {
+          arrLength?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] }
+              ) => number | Promise<number>)
+        } & {
+          isMocked?:
+            | boolean
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number }
+              ) => boolean | Promise<boolean>)
+        } & {
+          nullHere?:
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean }
+              ) => Promise<null> | null)
+            | null
+        } & {
+          voidHere?:
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                }
+              ) => Promise<undefined> | undefined)
+            | undefined
+        } & {
+          arraySum?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined }
+              ) => number | Promise<number>)
+        } & {
+          strConcat?:
+            | string
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number }
+              ) => string | Promise<string>)
+        } & {
+          sumOfSums?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string }
+              ) => number | Promise<number>)
+        } & {
+          objectifySum?:
+            | { arraySum: number; sum: number }
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number }
+              ) => { arraySum: number; sum: number } | Promise<{ arraySum: number; sum: number }>)
+        } & {
+          numbersArrayLength?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                }
+              ) => number | Promise<number>)
+        } & {
+          idealNumber?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                } & { numbersArrayLength: number }
+              ) => number | Promise<number>)
+        } & {
+          noMoreIdealNumber?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                } & { numbersArrayLength: number } & { idealNumber: number }
+              ) => number | Promise<number>)
+        } & {
+          arrayWithIdealNumber?:
+            | number[]
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                } & { numbersArrayLength: number } & { idealNumber: number } & { noMoreIdealNumber: number }
+              ) => number[] | Promise<number[]>)
+        })
+      | undefined,
+    only?:
+      | (
+          | 'incNumber'
+          | 'strNumber'
+          | 'strLength'
+          | 'strLengthPositive'
+          | 'sum'
+          | 'numbersArray'
+          | 'arrLength'
+          | 'isMocked'
+          | 'nullHere'
+          | 'voidHere'
+          | 'arraySum'
+          | 'strConcat'
+          | 'sumOfSums'
+          | 'objectifySum'
+          | 'numbersArrayLength'
+          | 'idealNumber'
+          | 'noMoreIdealNumber'
+          | 'arrayWithIdealNumber'
+        )[]
+      | undefined
+  ) => Promise<
+    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+      strLengthPositive: boolean
+    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      nullHere: null
+    } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+      objectifySum: { arraySum: number; sum: number }
+    } & { numbersArrayLength: number } & { idealNumber: number } & { noMoreIdealNumber: number } & {
+      arrayWithIdealNumber: number[]
+    }
+  >
+>(
+  klubok(
+    pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
+    pure('strNumber', ({ incNumber }) => incNumber.toString()),
+    pure('strLength', ({ strNumber }) => strNumber.length),
+    pure('strLengthPositive', ({ strLength }) => strLength > 0),
+    pure('sum', ({ strLength, incNumber }) => strLength + incNumber),
+    pure('numbersArray', ({ number, incNumber, strLength, sum }) => [number, incNumber, strLength, sum]),
+    pure('arrLength', ({ numbersArray }) => numbersArray.length),
+    pure('isMocked', ({ numbersArray }) => numbersArray.length === 0),
+    pure('nullHere', () => null),
+    pure('voidHere', () => void 0),
+    eff('arraySum', async ({ numbersArray }) => numbersArray.reduce((a, b) => a + b, 0)),
+    pure(
+      'strConcat',
+      ({ strLength, strLengthPositive, strNumber }) => `${strLength} ${strLengthPositive} ${strNumber}`
+    ),
+    pure('sumOfSums', ({ sum, arraySum }) => sum + arraySum),
+    pure('objectifySum', ({ arraySum, sum }) => ({ arraySum, sum })),
+    pure('numbersArrayLength', ({ numbersArray }) => numbersArray.length),
+    pure('idealNumber', ({ numbersArrayLength }) => numbersArrayLength - numbersArrayLength + 73),
+    pure('noMoreIdealNumber', ({ idealNumber, sum }) => idealNumber + sum),
+    pure('arrayWithIdealNumber', ({ idealNumber, numbersArray }) => [...numbersArray, idealNumber])
+  )
+)
+
+expectType<
+  (
+    ctx: { number: number },
+    mock?:
+      | ({ incNumber?: number | ((ctx: { number: number }) => number | Promise<number>) } & {
+          strNumber?: string | ((ctx: { number: number } & { incNumber: number }) => string | Promise<string>)
+        } & {
+          strLength?:
+            | number
+            | ((ctx: { number: number } & { incNumber: number } & { strNumber: string }) => number | Promise<number>)
+        } & {
+          strLengthPositive?:
+            | boolean
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number }
+              ) => boolean | Promise<boolean>)
+        } & {
+          sum?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                }
+              ) => number | Promise<number>)
+        } & {
+          numbersArray?:
+            | number[]
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number }
+              ) => number[] | Promise<number[]>)
+        } & {
+          arrLength?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] }
+              ) => number | Promise<number>)
+        } & {
+          isMocked?:
+            | boolean
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number }
+              ) => boolean | Promise<boolean>)
+        } & {
+          nullHere?:
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean }
+              ) => Promise<null> | null)
+            | null
+        } & {
+          voidHere?:
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                }
+              ) => Promise<undefined> | undefined)
+            | undefined
+        } & {
+          arraySum?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined }
+              ) => number | Promise<number>)
+        } & {
+          strConcat?:
+            | string
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number }
+              ) => string | Promise<string>)
+        } & {
+          sumOfSums?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string }
+              ) => number | Promise<number>)
+        } & {
+          objectifySum?:
+            | { arraySum: number; sum: number }
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number }
+              ) => { arraySum: number; sum: number } | Promise<{ arraySum: number; sum: number }>)
+        } & {
+          numbersArrayLength?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                }
+              ) => number | Promise<number>)
+        } & {
+          idealNumber?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                } & { numbersArrayLength: number }
+              ) => number | Promise<number>)
+        } & {
+          noMoreIdealNumber?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                } & { numbersArrayLength: number } & { idealNumber: number }
+              ) => number | Promise<number>)
+        } & {
+          arrayWithIdealNumber?:
+            | number[]
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                } & { numbersArrayLength: number } & { idealNumber: number } & { noMoreIdealNumber: number }
+              ) => number[] | Promise<number[]>)
+        } & {
+          notIsMocked?:
+            | boolean
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                } & { numbersArrayLength: number } & { idealNumber: number } & { noMoreIdealNumber: number } & {
+                  arrayWithIdealNumber: number[]
+                }
+              ) => boolean | Promise<boolean>)
+        })
+      | undefined,
+    only?:
+      | (
+          | 'incNumber'
+          | 'strNumber'
+          | 'strLength'
+          | 'strLengthPositive'
+          | 'sum'
+          | 'numbersArray'
+          | 'arrLength'
+          | 'isMocked'
+          | 'nullHere'
+          | 'voidHere'
+          | 'arraySum'
+          | 'strConcat'
+          | 'sumOfSums'
+          | 'objectifySum'
+          | 'numbersArrayLength'
+          | 'idealNumber'
+          | 'noMoreIdealNumber'
+          | 'arrayWithIdealNumber'
+          | 'notIsMocked'
+        )[]
+      | undefined
+  ) => Promise<
+    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+      strLengthPositive: boolean
+    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      nullHere: null
+    } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+      objectifySum: { arraySum: number; sum: number }
+    } & { numbersArrayLength: number } & { idealNumber: number } & { noMoreIdealNumber: number } & {
+      arrayWithIdealNumber: number[]
+    } & { notIsMocked: boolean }
+  >
+>(
+  klubok(
+    pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
+    pure('strNumber', ({ incNumber }) => incNumber.toString()),
+    pure('strLength', ({ strNumber }) => strNumber.length),
+    pure('strLengthPositive', ({ strLength }) => strLength > 0),
+    pure('sum', ({ strLength, incNumber }) => strLength + incNumber),
+    pure('numbersArray', ({ number, incNumber, strLength, sum }) => [number, incNumber, strLength, sum]),
+    pure('arrLength', ({ numbersArray }) => numbersArray.length),
+    pure('isMocked', ({ numbersArray }) => numbersArray.length === 0),
+    pure('nullHere', () => null),
+    pure('voidHere', () => void 0),
+    eff('arraySum', async ({ numbersArray }) => numbersArray.reduce((a, b) => a + b, 0)),
+    pure(
+      'strConcat',
+      ({ strLength, strLengthPositive, strNumber }) => `${strLength} ${strLengthPositive} ${strNumber}`
+    ),
+    pure('sumOfSums', ({ sum, arraySum }) => sum + arraySum),
+    pure('objectifySum', ({ arraySum, sum }) => ({ arraySum, sum })),
+    pure('numbersArrayLength', ({ numbersArray }) => numbersArray.length),
+    pure('idealNumber', ({ numbersArrayLength }) => numbersArrayLength - numbersArrayLength + 73),
+    pure('noMoreIdealNumber', ({ idealNumber, sum }) => idealNumber + sum),
+    pure('arrayWithIdealNumber', ({ idealNumber, numbersArray }) => [...numbersArray, idealNumber]),
+    eff('notIsMocked', async ({ isMocked }) => !isMocked)
+  )
+)
+
+expectType<
+  (
+    ctx: { number: number },
+    mock?:
+      | ({ incNumber?: number | ((ctx: { number: number }) => number | Promise<number>) } & {
+          strNumber?: string | ((ctx: { number: number } & { incNumber: number }) => string | Promise<string>)
+        } & {
+          strLength?:
+            | number
+            | ((ctx: { number: number } & { incNumber: number } & { strNumber: string }) => number | Promise<number>)
+        } & {
+          strLengthPositive?:
+            | boolean
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number }
+              ) => boolean | Promise<boolean>)
+        } & {
+          sum?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                }
+              ) => number | Promise<number>)
+        } & {
+          numbersArray?:
+            | number[]
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number }
+              ) => number[] | Promise<number[]>)
+        } & {
+          arrLength?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] }
+              ) => number | Promise<number>)
+        } & {
+          isMocked?:
+            | boolean
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number }
+              ) => boolean | Promise<boolean>)
+        } & {
+          nullHere?:
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean }
+              ) => Promise<null> | null)
+            | null
+        } & {
+          voidHere?:
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                }
+              ) => Promise<undefined> | undefined)
+            | undefined
+        } & {
+          arraySum?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined }
+              ) => number | Promise<number>)
+        } & {
+          strConcat?:
+            | string
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number }
+              ) => string | Promise<string>)
+        } & {
+          sumOfSums?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string }
+              ) => number | Promise<number>)
+        } & {
+          objectifySum?:
+            | { arraySum: number; sum: number }
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number }
+              ) => { arraySum: number; sum: number } | Promise<{ arraySum: number; sum: number }>)
+        } & {
+          numbersArrayLength?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                }
+              ) => number | Promise<number>)
+        } & {
+          idealNumber?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                } & { numbersArrayLength: number }
+              ) => number | Promise<number>)
+        } & {
+          noMoreIdealNumber?:
+            | number
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                } & { numbersArrayLength: number } & { idealNumber: number }
+              ) => number | Promise<number>)
+        } & {
+          arrayWithIdealNumber?:
+            | number[]
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                } & { numbersArrayLength: number } & { idealNumber: number } & { noMoreIdealNumber: number }
+              ) => number[] | Promise<number[]>)
+        } & {
+          notIsMocked?:
+            | boolean
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                } & { numbersArrayLength: number } & { idealNumber: number } & { noMoreIdealNumber: number } & {
+                  arrayWithIdealNumber: number[]
+                }
+              ) => boolean | Promise<boolean>)
+        } & {
+          idealNumberString?:
+            | string
+            | ((
+                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                  strLengthPositive: boolean
+                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  nullHere: null
+                } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+                  objectifySum: { arraySum: number; sum: number }
+                } & { numbersArrayLength: number } & { idealNumber: number } & { noMoreIdealNumber: number } & {
+                  arrayWithIdealNumber: number[]
+                } & { notIsMocked: boolean }
+              ) => string | Promise<string>)
+        })
+      | undefined,
+    only?:
+      | (
+          | 'incNumber'
+          | 'strNumber'
+          | 'strLength'
+          | 'strLengthPositive'
+          | 'sum'
+          | 'numbersArray'
+          | 'arrLength'
+          | 'isMocked'
+          | 'nullHere'
+          | 'voidHere'
+          | 'arraySum'
+          | 'strConcat'
+          | 'sumOfSums'
+          | 'objectifySum'
+          | 'numbersArrayLength'
+          | 'idealNumber'
+          | 'noMoreIdealNumber'
+          | 'arrayWithIdealNumber'
+          | 'notIsMocked'
+          | 'idealNumberString'
+        )[]
+      | undefined
+  ) => Promise<
+    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+      strLengthPositive: boolean
+    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      nullHere: null
+    } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+      objectifySum: { arraySum: number; sum: number }
+    } & { numbersArrayLength: number } & { idealNumber: number } & { noMoreIdealNumber: number } & {
+      arrayWithIdealNumber: number[]
+    } & { notIsMocked: boolean } & { idealNumberString: string }
+  >
+>(
+  klubok(
+    pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
+    pure('strNumber', ({ incNumber }) => incNumber.toString()),
+    pure('strLength', ({ strNumber }) => strNumber.length),
+    pure('strLengthPositive', ({ strLength }) => strLength > 0),
+    pure('sum', ({ strLength, incNumber }) => strLength + incNumber),
+    pure('numbersArray', ({ number, incNumber, strLength, sum }) => [number, incNumber, strLength, sum]),
+    pure('arrLength', ({ numbersArray }) => numbersArray.length),
+    pure('isMocked', ({ numbersArray }) => numbersArray.length === 0),
+    pure('nullHere', () => null),
+    pure('voidHere', () => void 0),
+    eff('arraySum', async ({ numbersArray }) => numbersArray.reduce((a, b) => a + b, 0)),
+    pure(
+      'strConcat',
+      ({ strLength, strLengthPositive, strNumber }) => `${strLength} ${strLengthPositive} ${strNumber}`
+    ),
+    pure('sumOfSums', ({ sum, arraySum }) => sum + arraySum),
+    pure('objectifySum', ({ arraySum, sum }) => ({ arraySum, sum })),
+    pure('numbersArrayLength', ({ numbersArray }) => numbersArray.length),
+    pure('idealNumber', ({ numbersArrayLength }) => numbersArrayLength - numbersArrayLength + 73),
+    pure('noMoreIdealNumber', ({ idealNumber, sum }) => idealNumber + sum),
+    pure('arrayWithIdealNumber', ({ idealNumber, numbersArray }) => [...numbersArray, idealNumber]),
+    eff('notIsMocked', async ({ isMocked }) => !isMocked),
+    pure('idealNumberString', ({ idealNumber }) => idealNumber.toString())
+  )
+)
