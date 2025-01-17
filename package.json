@@ -1,6 +1,6 @@
 {
   "name": "klubok",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Do notation pipes for Promise-based or pure functions which easy to mock",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
