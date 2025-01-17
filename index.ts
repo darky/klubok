@@ -4863,14 +4863,11 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
                 : (async () => {
                     try {
                       return await Promise.resolve(fn(ctx)).then(resp => ({ ...ctx, [fn.key]: resp }))
-                    } catch (error: any) {
-                      throw inspect(
-                        {
-                          error: error.stack ?? error.message ?? error,
-                          ctx,
-                        },
-                        { depth: 3 }
-                      )
+                    } catch (error) {
+                      if (error instanceof Error) {
+                        error.stack += '\ncontext: ' + inspect(ctx)
+                      }
+                      throw error
                     }
                   })()
             )
@@ -4890,14 +4887,11 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
                           ? Reflect.get(mock, fn.key)(ctx)
                           : fn(ctx)
                       ).then(resp => ({ ...ctx, [fn.key]: resp }))
-                    } catch (error: any) {
-                      throw inspect(
-                        {
-                          error: error.stack ?? error.message ?? error,
-                          ctx,
-                        },
-                        { depth: 3 }
-                      )
+                    } catch (error) {
+                      if (error instanceof Error) {
+                        error.stack += '\ncontext: ' + inspect(ctx)
+                      }
+                      throw error
                     }
                   })()
             ),
