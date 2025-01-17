@@ -1,3 +1,5 @@
+import { inspect } from 'node:util'
+
 type KeyedFunction<K extends string, F extends Function> = F & { key: K; mutable: boolean }
 
 export const pure = <K extends string, C, R>(key: K, fn: (ctx: C) => R): KeyedFunction<K, (ctx: C) => R> =>
@@ -4862,10 +4864,13 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
                     try {
                       return await Promise.resolve(fn(ctx)).then(resp => ({ ...ctx, [fn.key]: resp }))
                     } catch (error: any) {
-                      throw {
-                        error: error.stack ?? error.message ?? error,
-                        ctx
-                      }
+                      throw inspect(
+                        {
+                          error: error.stack ?? error.message ?? error,
+                          ctx,
+                        },
+                        { depth: 3 }
+                      )
                     }
                   })()
             )
@@ -4879,19 +4884,22 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
                   (only && only.length && !only.includes(fn.key))
                 ? ctx
                 : (async () => {
-                  try {
-                    return await Promise.resolve(
-                      mock && Reflect.has(mock, fn.key) && typeof Reflect.get(mock, fn.key) === 'function'
-                        ? Reflect.get(mock, fn.key)(ctx)
-                        : fn(ctx)
-                    ).then(resp => ({ ...ctx, [fn.key]: resp }))
-                  } catch(error: any) {
-                    throw {
-                      error: error.stack ?? error.message ?? error,
-                      ctx
+                    try {
+                      return await Promise.resolve(
+                        mock && Reflect.has(mock, fn.key) && typeof Reflect.get(mock, fn.key) === 'function'
+                          ? Reflect.get(mock, fn.key)(ctx)
+                          : fn(ctx)
+                      ).then(resp => ({ ...ctx, [fn.key]: resp }))
+                    } catch (error: any) {
+                      throw inspect(
+                        {
+                          error: error.stack ?? error.message ?? error,
+                          ctx,
+                        },
+                        { depth: 3 }
+                      )
                     }
-                  }
-                })()
+                  })()
             ),
       Promise.resolve({ ...rootCtx, ...mock })
     )

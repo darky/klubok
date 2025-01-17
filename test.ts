@@ -337,8 +337,8 @@ test('throwable error with context for production fn', async () => {
     })
   )
   const err = await fn({ number: 1 }).catch(e => e)
-  assert.match(err.error, /^Error: test/)
-  assert.deepStrictEqual(err.ctx, { number: 1, incNumber: 2, strNumber: '2' })
+  assert.match(err, /error: 'Error: test/)
+  assert.match(err, /ctx: { number: 1, incNumber: 2, strNumber: '2' }/)
 })
 
 test('throwable error with context for test fn', async () => {
@@ -350,6 +350,6 @@ test('throwable error with context for test fn', async () => {
     })
   )
   const err = await fn({ number: 1 }, {}, []).catch(e => e)
-  assert.match(err.error, /^Error: test/)
-  assert.deepStrictEqual(err.ctx, { number: 1, incNumber: 2, strNumber: '2' })
+  assert.match(err, /error: 'Error: test/)
+  assert.match(err, /ctx: { number: 1, incNumber: 2, strNumber: '2' }/)
 })
