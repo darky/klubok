@@ -4870,7 +4870,7 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
                     try {
                       return await Promise.resolve(fn(ctx)).then(resp => ({ ...ctx, [fn.key]: resp }))
                     } catch (error) {
-                      await onError?.(error)
+                      await onError?.({ ...ctx, $error: error })
                       if (error instanceof Error) {
                         error.stack += '\ncontext: ' + inspect(ctx)
                       }
@@ -4895,7 +4895,7 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
                           : fn(ctx)
                       ).then(resp => ({ ...ctx, [fn.key]: resp }))
                     } catch (error) {
-                      await onError?.(error)
+                      await onError?.({ ...ctx, $error: error })
                       if (error instanceof Error) {
                         error.stack += '\ncontext: ' + inspect(ctx)
                       }

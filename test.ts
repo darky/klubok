@@ -355,9 +355,9 @@ test('throwable error with context for test fn', async () => {
 })
 
 test('onError handler catched', async () => {
-  let errorCatched
+  let ctxOnError
   const fn = klubok(
-    onError('onError', (err: { number: number }) => (errorCatched = err)),
+    onError('onError', (ctx: { number: number }) => (ctxOnError = ctx)),
     pure('incNumber', ctx => ctx.number + 1),
     pure('strNumber', ({ incNumber }) => incNumber.toString()),
     eff('throwable', () => {
@@ -365,7 +365,12 @@ test('onError handler catched', async () => {
     })
   )
   await fn({ number: 1 }, {}, []).catch(e => e)
-  assert.deepStrictEqual(errorCatched, new Error('test'))
+  assert.deepStrictEqual(ctxOnError, {
+    $error: new Error('test'),
+    incNumber: 2,
+    number: 1,
+    strNumber: '2',
+  })
 })
 
 test('onError handler is silent', async () => {
