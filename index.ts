@@ -1,17 +1,20 @@
 import { inspect } from 'node:util'
 
-type KeyedFunction<K extends string, F extends Function> = F & { key: K; mutable: boolean }
+type KeyedFunction<K extends string, F extends Function> = F & { key: K; mutable: boolean; onError: boolean }
 
 export const pure = <K extends string, C, R>(key: K, fn: (ctx: C) => R): KeyedFunction<K, (ctx: C) => R> =>
-  Object.assign(fn, { key, mutable: false })
+  Object.assign(fn, { key, mutable: false, onError: false })
 
 export const eff = <K extends string, C, R>(
   key: K,
   fn: (ctx: C) => Promise<R>
-): KeyedFunction<K, (ctx: C) => Promise<R>> => Object.assign(fn, { key, mutable: false })
+): KeyedFunction<K, (ctx: C) => Promise<R>> => Object.assign(fn, { key, mutable: false, onError: false })
 
 export const mut = <K extends string, C, R>(fn: KeyedFunction<K, (ctx: C) => R>): KeyedFunction<K, (ctx: C) => R> =>
   Object.assign(fn, { mutable: true })
+
+export const onError = <K extends string, C, R>(key: K, fn: (ctx: C) => R): KeyedFunction<K, (ctx: C) => R> =>
+  Object.assign(fn, { key, mutable: false, onError: true })
 
 export function klubok<K1 extends string, C extends object, R1>(
   fn1: KeyedFunction<K1, (ctx: C) => Promise<R1> | R1>
@@ -4851,8 +4854,11 @@ export function klubok<
   }
 >
 export function klubok(...fns: KeyedFunction<string, Function>[]) {
+  const funcs = fns.filter(f => !f.onError)
+  const onError = fns.find(f => f.onError)
+
   return (rootCtx = {}, mock?: object, only?: string[]) =>
-    fns.reduce(
+    funcs.reduce(
       mock == null && only == null
         ? (acc, fn) =>
             acc.then(ctx =>
@@ -4864,6 +4870,7 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
                     try {
                       return await Promise.resolve(fn(ctx)).then(resp => ({ ...ctx, [fn.key]: resp }))
                     } catch (error) {
+                      await onError?.(error)
                       if (error instanceof Error) {
                         error.stack += '\ncontext: ' + inspect(ctx)
                       }
@@ -4888,6 +4895,7 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
                           : fn(ctx)
                       ).then(resp => ({ ...ctx, [fn.key]: resp }))
                     } catch (error) {
+                      await onError?.(error)
                       if (error instanceof Error) {
                         error.stack += '\ncontext: ' + inspect(ctx)
                       }

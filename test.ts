@@ -1,5 +1,5 @@
 import test from 'node:test'
-import { eff, klubok, mut, pure } from './index.ts'
+import { eff, klubok, mut, onError, pure } from './index.ts'
 import assert from 'node:assert'
 
 test('1 param sync, resp', async () => {
@@ -352,4 +352,34 @@ test('throwable error with context for test fn', async () => {
   const err = await fn({ number: 1 }, {}, []).catch(e => e)
   assert.deepStrictEqual(err, new Error('test'))
   assert.match(err.stack ?? '', /context: { number: 1, incNumber: 2, strNumber: '2' }/)
+})
+
+test('onError handler catched', async () => {
+  let errorCatched
+  const fn = klubok(
+    onError('onError', (err: { number: number }) => (errorCatched = err)),
+    pure('incNumber', ctx => ctx.number + 1),
+    pure('strNumber', ({ incNumber }) => incNumber.toString()),
+    eff('throwable', () => {
+      throw new Error('test')
+    })
+  )
+  await fn({ number: 1 }, {}, []).catch(e => e)
+  assert.deepStrictEqual(errorCatched, new Error('test'))
+})
+
+test('onError handler is silent', async () => {
+  let errorCatched = false
+  const fn = klubok(
+    onError('onError', (_: { number: number }) => (errorCatched = true)),
+    pure('incNumber', ctx => ctx.number + 1),
+    pure('strNumber', ({ incNumber }) => incNumber.toString())
+  )
+  const resp = await fn({ number: 1 }, {}, [])
+  assert.deepStrictEqual(resp, {
+    incNumber: 2,
+    number: 1,
+    strNumber: '2',
+  })
+  assert.deepStrictEqual(errorCatched, false)
 })
