@@ -47,7 +47,7 @@ expectType<
         })
       | undefined,
     only?: ('incNumber' | 'strNumber' | 'strLength')[] | undefined
-  ) => Promise<{ number: number } & { incNumber: number } & { strNumber: string } & { strLength: number }>
+  ) => Promise<{ number: number } & { incNumber: number; strNumber: string; strLength: number }>
 >(
   klubok(
     pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
@@ -76,9 +76,7 @@ expectType<
       | undefined,
     only?: ('incNumber' | 'strNumber' | 'strLength' | 'strLengthPositive')[] | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
-      strLengthPositive: boolean
-    }
+    { number: number } & { incNumber: number; strNumber: string; strLength: number; strLengthPositive: boolean }
   >
 >(
   klubok(
@@ -117,9 +115,13 @@ expectType<
       | undefined,
     only?: ('incNumber' | 'strNumber' | 'strLength' | 'strLengthPositive' | 'sum')[] | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number }
+      sum: number
+    }
   >
 >(
   klubok(
@@ -167,9 +169,14 @@ expectType<
       | undefined,
     only?: ('incNumber' | 'strNumber' | 'strLength' | 'strLengthPositive' | 'sum' | 'numbersArray')[] | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number } & { numbersArray: number[] }
+      sum: number
+      numbersArray: number[]
+    }
   >
 >(
   klubok(
@@ -228,9 +235,15 @@ expectType<
       | ('incNumber' | 'strNumber' | 'strLength' | 'strLengthPositive' | 'sum' | 'numbersArray' | 'arrLength')[]
       | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number } & { numbersArray: number[] } & { arrLength: number }
+      sum: number
+      numbersArray: number[]
+      arrLength: number
+    }
   >
 >(
   klubok(
@@ -307,9 +320,16 @@ expectType<
         )[]
       | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean }
+      sum: number
+      numbersArray: number[]
+      arrLength: number
+      isMocked: boolean
+    }
   >
 >(
   klubok(
@@ -396,9 +416,15 @@ expectType<
         )[]
       | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      sum: number
+      numbersArray: number[]
+      arrLength: number
+      isMocked: boolean
       neverExists: null
     }
   >
@@ -499,11 +525,18 @@ expectType<
         )[]
       | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      sum: number
+      numbersArray: number[]
+      arrLength: number
+      isMocked: boolean
       nullHere: null
-    } & { voidHere: undefined }
+      voidHere: undefined
+    }
   >
 >(
   klubok(
@@ -614,11 +647,19 @@ expectType<
         )[]
       | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      sum: number
+      numbersArray: number[]
+      arrLength: number
+      isMocked: boolean
       nullHere: null
-    } & { voidHere: undefined } & { arraySum: number }
+      voidHere: undefined
+      arraySum: number
+    }
   >
 >(
   klubok(
@@ -741,11 +782,20 @@ expectType<
         )[]
       | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      sum: number
+      numbersArray: number[]
+      arrLength: number
+      isMocked: boolean
       nullHere: null
-    } & { voidHere: undefined } & { arraySum: number } & { strConcat: string }
+      voidHere: undefined
+      arraySum: number
+      strConcat: string
+    }
   >
 >(
   klubok(
@@ -880,11 +930,21 @@ expectType<
         )[]
       | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      sum: number
+      numbersArray: number[]
+      arrLength: number
+      isMocked: boolean
       nullHere: null
-    } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number }
+      voidHere: undefined
+      arraySum: number
+      strConcat: string
+      sumOfSums: number
+    }
   >
 >(
   klubok(
@@ -1034,11 +1094,20 @@ expectType<
         )[]
       | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      sum: number
+      numbersArray: number[]
+      arrLength: number
+      isMocked: boolean
       nullHere: null
-    } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+      voidHere: undefined
+      arraySum: number
+      strConcat: string
+      sumOfSums: number
       objectifySum: { arraySum: number; sum: number }
     }
   >
@@ -1204,13 +1273,23 @@ expectType<
         )[]
       | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      sum: number
+      numbersArray: number[]
+      arrLength: number
+      isMocked: boolean
       nullHere: null
-    } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+      voidHere: undefined
+      arraySum: number
+      strConcat: string
+      sumOfSums: number
       objectifySum: { arraySum: number; sum: number }
-    } & { numbersArrayLength: number }
+      numbersArrayLength: number
+    }
   >
 >(
   klubok(
@@ -1388,13 +1467,24 @@ expectType<
         )[]
       | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      sum: number
+      numbersArray: number[]
+      arrLength: number
+      isMocked: boolean
       nullHere: null
-    } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+      voidHere: undefined
+      arraySum: number
+      strConcat: string
+      sumOfSums: number
       objectifySum: { arraySum: number; sum: number }
-    } & { numbersArrayLength: number } & { idealNumber: number }
+      numbersArrayLength: number
+      idealNumber: number
+    }
   >
 >(
   klubok(
@@ -1586,13 +1676,25 @@ expectType<
         )[]
       | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      sum: number
+      numbersArray: number[]
+      arrLength: number
+      isMocked: boolean
       nullHere: null
-    } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+      voidHere: undefined
+      arraySum: number
+      strConcat: string
+      sumOfSums: number
       objectifySum: { arraySum: number; sum: number }
-    } & { numbersArrayLength: number } & { idealNumber: number } & { noMoreIdealNumber: number }
+      numbersArrayLength: number
+      idealNumber: number
+      noMoreIdealNumber: number
+    }
   >
 >(
   klubok(
@@ -1798,13 +1900,24 @@ expectType<
         )[]
       | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      sum: number
+      numbersArray: number[]
+      arrLength: number
+      isMocked: boolean
       nullHere: null
-    } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+      voidHere: undefined
+      arraySum: number
+      strConcat: string
+      sumOfSums: number
       objectifySum: { arraySum: number; sum: number }
-    } & { numbersArrayLength: number } & { idealNumber: number } & { noMoreIdealNumber: number } & {
+      numbersArrayLength: number
+      idealNumber: number
+      noMoreIdealNumber: number
       arrayWithIdealNumber: number[]
     }
   >
@@ -2028,15 +2141,27 @@ expectType<
         )[]
       | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      sum: number
+      numbersArray: number[]
+      arrLength: number
+      isMocked: boolean
       nullHere: null
-    } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+      voidHere: undefined
+      arraySum: number
+      strConcat: string
+      sumOfSums: number
       objectifySum: { arraySum: number; sum: number }
-    } & { numbersArrayLength: number } & { idealNumber: number } & { noMoreIdealNumber: number } & {
+      numbersArrayLength: number
+      idealNumber: number
+      noMoreIdealNumber: number
       arrayWithIdealNumber: number[]
-    } & { notIsMocked: boolean }
+      notIsMocked: boolean
+    }
   >
 >(
   klubok(
@@ -2274,15 +2399,28 @@ expectType<
         )[]
       | undefined
   ) => Promise<
-    { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+    { number: number } & {
+      incNumber: number
+      strNumber: string
+      strLength: number
       strLengthPositive: boolean
-    } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+      sum: number
+      numbersArray: number[]
+      arrLength: number
+      isMocked: boolean
       nullHere: null
-    } & { voidHere: undefined } & { arraySum: number } & { strConcat: string } & { sumOfSums: number } & {
+      voidHere: undefined
+      arraySum: number
+      strConcat: string
+      sumOfSums: number
       objectifySum: { arraySum: number; sum: number }
-    } & { numbersArrayLength: number } & { idealNumber: number } & { noMoreIdealNumber: number } & {
+      numbersArrayLength: number
+      idealNumber: number
+      noMoreIdealNumber: number
       arrayWithIdealNumber: number[]
-    } & { notIsMocked: boolean } & { idealNumberString: string }
+      notIsMocked: boolean
+      idealNumberString: string
+    }
   >
 >(
   klubok(
