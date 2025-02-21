@@ -21,12 +21,13 @@ expectType<
   (
     ctx: { number: number },
     mock?:
-      | ({ incNumber?: number | ((ctx: { number: number }) => number | Promise<number>) } & {
+      | {
+          incNumber?: number | ((ctx: { number: number }) => number | Promise<number>)
           strNumber?: string | ((ctx: { number: number } & { incNumber: number }) => string | Promise<string>)
-        })
+        }
       | undefined,
     only?: ('incNumber' | 'strNumber')[] | undefined
-  ) => Promise<{ number: number } & { incNumber: number } & { strNumber: string }>
+  ) => Promise<{ number: number } & { incNumber: number; strNumber: string }>
 >(
   klubok(
     pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
@@ -38,13 +39,13 @@ expectType<
   (
     ctx: { number: number },
     mock?:
-      | ({ incNumber?: number | ((ctx: { number: number }) => number | Promise<number>) } & {
+      | {
+          incNumber?: number | ((ctx: { number: number }) => number | Promise<number>)
           strNumber?: string | ((ctx: { number: number } & { incNumber: number }) => string | Promise<string>)
-        } & {
           strLength?:
             | number
-            | ((ctx: { number: number } & { incNumber: number } & { strNumber: string }) => number | Promise<number>)
-        })
+            | ((ctx: { number: number } & { incNumber: number; strNumber: string }) => number | Promise<number>)
+        }
       | undefined,
     only?: ('incNumber' | 'strNumber' | 'strLength')[] | undefined
   ) => Promise<{ number: number } & { incNumber: number; strNumber: string; strLength: number }>
@@ -60,19 +61,18 @@ expectType<
   (
     ctx: { number: number },
     mock?:
-      | ({ incNumber?: number | ((ctx: { number: number }) => number | Promise<number>) } & {
+      | {
+          incNumber?: number | ((ctx: { number: number }) => number | Promise<number>)
           strNumber?: string | ((ctx: { number: number } & { incNumber: number }) => string | Promise<string>)
-        } & {
           strLength?:
             | number
-            | ((ctx: { number: number } & { incNumber: number } & { strNumber: string }) => number | Promise<number>)
-        } & {
+            | ((ctx: { number: number } & { incNumber: number; strNumber: string }) => number | Promise<number>)
           strLengthPositive?:
             | boolean
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number }
+                ctx: { number: number } & { incNumber: number; strNumber: string; strLength: number }
               ) => boolean | Promise<boolean>)
-        })
+        }
       | undefined,
     only?: ('incNumber' | 'strNumber' | 'strLength' | 'strLengthPositive')[] | undefined
   ) => Promise<
@@ -91,27 +91,28 @@ expectType<
   (
     ctx: { number: number },
     mock?:
-      | ({ incNumber?: number | ((ctx: { number: number }) => number | Promise<number>) } & {
+      | {
+          incNumber?: number | ((ctx: { number: number }) => number | Promise<number>)
           strNumber?: string | ((ctx: { number: number } & { incNumber: number }) => string | Promise<string>)
-        } & {
           strLength?:
             | number
-            | ((ctx: { number: number } & { incNumber: number } & { strNumber: string }) => number | Promise<number>)
-        } & {
+            | ((ctx: { number: number } & { incNumber: number; strNumber: string }) => number | Promise<number>)
           strLengthPositive?:
             | boolean
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number }
+                ctx: { number: number } & { incNumber: number; strNumber: string; strLength: number }
               ) => boolean | Promise<boolean>)
-        } & {
           sum?:
             | number
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
                 }
               ) => number | Promise<number>)
-        })
+        }
       | undefined,
     only?: ('incNumber' | 'strNumber' | 'strLength' | 'strLengthPositive' | 'sum')[] | undefined
   ) => Promise<
@@ -137,35 +138,39 @@ expectType<
   (
     ctx: { number: number },
     mock?:
-      | ({ incNumber?: number | ((ctx: { number: number }) => number | Promise<number>) } & {
+      | {
+          incNumber?: number | ((ctx: { number: number }) => number | Promise<number>)
           strNumber?: string | ((ctx: { number: number } & { incNumber: number }) => string | Promise<string>)
-        } & {
           strLength?:
             | number
-            | ((ctx: { number: number } & { incNumber: number } & { strNumber: string }) => number | Promise<number>)
-        } & {
+            | ((ctx: { number: number } & { incNumber: number; strNumber: string }) => number | Promise<number>)
           strLengthPositive?:
             | boolean
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number }
+                ctx: { number: number } & { incNumber: number; strNumber: string; strLength: number }
               ) => boolean | Promise<boolean>)
-        } & {
           sum?:
             | number
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
                 }
               ) => number | Promise<number>)
-        } & {
           numbersArray?:
             | number[]
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
-                } & { sum: number }
+                  sum: number
+                }
               ) => number[] | Promise<number[]>)
-        })
+        }
       | undefined,
     only?: ('incNumber' | 'strNumber' | 'strLength' | 'strLengthPositive' | 'sum' | 'numbersArray')[] | undefined
   ) => Promise<
@@ -193,43 +198,51 @@ expectType<
   (
     ctx: { number: number },
     mock?:
-      | ({ incNumber?: number | ((ctx: { number: number }) => number | Promise<number>) } & {
+      | {
+          incNumber?: number | ((ctx: { number: number }) => number | Promise<number>)
           strNumber?: string | ((ctx: { number: number } & { incNumber: number }) => string | Promise<string>)
-        } & {
           strLength?:
             | number
-            | ((ctx: { number: number } & { incNumber: number } & { strNumber: string }) => number | Promise<number>)
-        } & {
+            | ((ctx: { number: number } & { incNumber: number; strNumber: string }) => number | Promise<number>)
           strLengthPositive?:
             | boolean
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number }
+                ctx: { number: number } & { incNumber: number; strNumber: string; strLength: number }
               ) => boolean | Promise<boolean>)
-        } & {
           sum?:
             | number
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
                 }
               ) => number | Promise<number>)
-        } & {
           numbersArray?:
             | number[]
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
-                } & { sum: number }
+                  sum: number
+                }
               ) => number[] | Promise<number[]>)
-        } & {
           arrLength?:
             | number
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
-                } & { sum: number } & { numbersArray: number[] }
+                  sum: number
+                  numbersArray: number[]
+                }
               ) => number | Promise<number>)
-        })
+        }
       | undefined,
     only?:
       | ('incNumber' | 'strNumber' | 'strLength' | 'strLengthPositive' | 'sum' | 'numbersArray' | 'arrLength')[]
@@ -261,51 +274,64 @@ expectType<
   (
     ctx: { number: number },
     mock?:
-      | ({ incNumber?: number | ((ctx: { number: number }) => number | Promise<number>) } & {
+      | {
+          incNumber?: number | ((ctx: { number: number }) => number | Promise<number>)
           strNumber?: string | ((ctx: { number: number } & { incNumber: number }) => string | Promise<string>)
-        } & {
           strLength?:
             | number
-            | ((ctx: { number: number } & { incNumber: number } & { strNumber: string }) => number | Promise<number>)
-        } & {
+            | ((ctx: { number: number } & { incNumber: number; strNumber: string }) => number | Promise<number>)
           strLengthPositive?:
             | boolean
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number }
+                ctx: { number: number } & { incNumber: number; strNumber: string; strLength: number }
               ) => boolean | Promise<boolean>)
-        } & {
           sum?:
             | number
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
                 }
               ) => number | Promise<number>)
-        } & {
           numbersArray?:
             | number[]
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
-                } & { sum: number }
+                  sum: number
+                }
               ) => number[] | Promise<number[]>)
-        } & {
           arrLength?:
             | number
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
-                } & { sum: number } & { numbersArray: number[] }
+                  sum: number
+                  numbersArray: number[]
+                }
               ) => number | Promise<number>)
-        } & {
           isMocked?:
             | boolean
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
-                } & { sum: number } & { numbersArray: number[] } & { arrLength: number }
+                  sum: number
+                  numbersArray: number[]
+                  arrLength: number
+                }
               ) => boolean | Promise<boolean>)
-        })
+        }
       | undefined,
     only?:
       | (
@@ -348,59 +374,78 @@ expectType<
   (
     ctx: { number: number },
     mock?:
-      | ({ incNumber?: number | ((ctx: { number: number }) => number | Promise<number>) } & {
+      | {
+          incNumber?: number | ((ctx: { number: number }) => number | Promise<number>)
           strNumber?: string | ((ctx: { number: number } & { incNumber: number }) => string | Promise<string>)
-        } & {
           strLength?:
             | number
-            | ((ctx: { number: number } & { incNumber: number } & { strNumber: string }) => number | Promise<number>)
-        } & {
+            | ((ctx: { number: number } & { incNumber: number; strNumber: string }) => number | Promise<number>)
           strLengthPositive?:
             | boolean
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number }
+                ctx: { number: number } & { incNumber: number; strNumber: string; strLength: number }
               ) => boolean | Promise<boolean>)
-        } & {
           sum?:
             | number
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
                 }
               ) => number | Promise<number>)
-        } & {
           numbersArray?:
             | number[]
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
-                } & { sum: number }
+                  sum: number
+                }
               ) => number[] | Promise<number[]>)
-        } & {
           arrLength?:
             | number
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
-                } & { sum: number } & { numbersArray: number[] }
+                  sum: number
+                  numbersArray: number[]
+                }
               ) => number | Promise<number>)
-        } & {
           isMocked?:
             | boolean
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
-                } & { sum: number } & { numbersArray: number[] } & { arrLength: number }
+                  sum: number
+                  numbersArray: number[]
+                  arrLength: number
+                }
               ) => boolean | Promise<boolean>)
-        } & {
           neverExists?:
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
-                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean }
+                  sum: number
+                  numbersArray: number[]
+                  arrLength: number
+                  isMocked: boolean
+                }
               ) => null | Promise<null>)
             | null
-        })
+        }
       | undefined,
     only?:
       | (
@@ -446,69 +491,93 @@ expectType<
   (
     ctx: { number: number },
     mock?:
-      | ({ incNumber?: number | ((ctx: { number: number }) => number | Promise<number>) } & {
+      | {
+          incNumber?: number | ((ctx: { number: number }) => number | Promise<number>)
           strNumber?: string | ((ctx: { number: number } & { incNumber: number }) => string | Promise<string>)
-        } & {
           strLength?:
             | number
-            | ((ctx: { number: number } & { incNumber: number } & { strNumber: string }) => number | Promise<number>)
-        } & {
+            | ((ctx: { number: number } & { incNumber: number; strNumber: string }) => number | Promise<number>)
           strLengthPositive?:
             | boolean
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number }
+                ctx: { number: number } & { incNumber: number; strNumber: string; strLength: number }
               ) => boolean | Promise<boolean>)
-        } & {
           sum?:
             | number
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
                 }
               ) => number | Promise<number>)
-        } & {
           numbersArray?:
             | number[]
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
-                } & { sum: number }
+                  sum: number
+                }
               ) => number[] | Promise<number[]>)
-        } & {
           arrLength?:
             | number
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
-                } & { sum: number } & { numbersArray: number[] }
+                  sum: number
+                  numbersArray: number[]
+                }
               ) => number | Promise<number>)
-        } & {
           isMocked?:
             | boolean
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
-                } & { sum: number } & { numbersArray: number[] } & { arrLength: number }
+                  sum: number
+                  numbersArray: number[]
+                  arrLength: number
+                }
               ) => boolean | Promise<boolean>)
-        } & {
           nullHere?:
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
-                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean }
+                  sum: number
+                  numbersArray: number[]
+                  arrLength: number
+                  isMocked: boolean
+                }
               ) => null | Promise<null>)
             | null
-        } & {
           voidHere?:
             | ((
-                ctx: { number: number } & { incNumber: number } & { strNumber: string } & { strLength: number } & {
+                ctx: { number: number } & {
+                  incNumber: number
+                  strNumber: string
+                  strLength: number
                   strLengthPositive: boolean
-                } & { sum: number } & { numbersArray: number[] } & { arrLength: number } & { isMocked: boolean } & {
+                  sum: number
+                  numbersArray: number[]
+                  arrLength: number
+                  isMocked: boolean
                   nullHere: null
                 }
               ) => undefined | Promise<undefined>)
             | undefined
-        })
+        }
       | undefined,
     only?:
       | (
