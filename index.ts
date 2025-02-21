@@ -1197,82 +1197,146 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
-    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
-  } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
-  } & {
-    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
-  } & {
-    [k in K5]?:
-      | R5
-      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
-  } & {
-    [k in K6]?:
-      | R6
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
-        ) => R6 | Promise<R6>)
-  } & {
-    [k in K7]?:
-      | R7
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          }
-        ) => R7 | Promise<R7>)
-  } & {
-    [k in K8]?:
-      | R8
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          }
-        ) => R8 | Promise<R8>)
-  } & {
-    [k in K9]?:
-      | R9
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          }
-        ) => R9 | Promise<R9>)
-  } & {
-    [k in K10]?:
-      | R10
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          }
-        ) => R10 | Promise<R10>)
-  } & {
-    [k in K11]?:
-      | R11
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          } & {
-            [k in K10]: R10
-          }
-        ) => R11 | Promise<R11>)
+  mock?: {
+    [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11]?: k extends K1
+      ? R1 | ((ctx: C) => R1 | Promise<R1>)
+      : k extends K2
+      ? R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+      : k extends K3
+      ? R3 | ((ctx: C & { [k in K1 | K2]: k extends K1 ? R1 : R2 }) => R3 | Promise<R3>)
+      : k extends K4
+      ? R4 | ((ctx: C & { [k in K1 | K2 | K3]: k extends K1 ? R1 : k extends K2 ? R2 : R3 }) => R4 | Promise<R4>)
+      : k extends K5
+      ?
+          | R5
+          | ((
+              ctx: C & { [k in K1 | K2 | K3 | K4]: k extends K1 ? R1 : k extends K2 ? R2 : k extends K3 ? R3 : R4 }
+            ) => R5 | Promise<R5>)
+      : k extends K6
+      ?
+          | R6
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : R5
+              }
+            ) => R6 | Promise<R6>)
+      : k extends K7
+      ?
+          | R7
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : R6
+              }
+            ) => R7 | Promise<R7>)
+      : k extends K8
+      ?
+          | R8
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : R7
+              }
+            ) => R8 | Promise<R8>)
+      : k extends K9
+      ?
+          | R9
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : R8
+              }
+            ) => R9 | Promise<R9>)
+      : k extends K10
+      ?
+          | R10
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : R9
+              }
+            ) => R10 | Promise<R10>)
+      :
+          | R11
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : k extends K9
+                  ? R9
+                  : R10
+              }
+            ) => R11 | Promise<R11>)
   },
   only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11)[]
 ) => Promise<
@@ -1496,100 +1560,174 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
-    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
-  } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
-  } & {
-    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
-  } & {
-    [k in K5]?:
-      | R5
-      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
-  } & {
-    [k in K6]?:
-      | R6
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
-        ) => R6 | Promise<R6>)
-  } & {
-    [k in K7]?:
-      | R7
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          }
-        ) => R7 | Promise<R7>)
-  } & {
-    [k in K8]?:
-      | R8
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          }
-        ) => R8 | Promise<R8>)
-  } & {
-    [k in K9]?:
-      | R9
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          }
-        ) => R9 | Promise<R9>)
-  } & {
-    [k in K10]?:
-      | R10
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          }
-        ) => R10 | Promise<R10>)
-  } & {
-    [k in K11]?:
-      | R11
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          } & {
-            [k in K10]: R10
-          }
-        ) => R11 | Promise<R11>)
-  } & {
-    [k in K12]?:
-      | R12
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          } & {
-            [k in K10]: R10
-          } & {
-            [k in K11]: R11
-          }
-        ) => R12 | Promise<R12>)
+  mock?: {
+    [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12]?: k extends K1
+      ? R1 | ((ctx: C) => R1 | Promise<R1>)
+      : k extends K2
+      ? R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+      : k extends K3
+      ? R3 | ((ctx: C & { [k in K1 | K2]: k extends K1 ? R1 : R2 }) => R3 | Promise<R3>)
+      : k extends K4
+      ? R4 | ((ctx: C & { [k in K1 | K2 | K3]: k extends K1 ? R1 : k extends K2 ? R2 : R3 }) => R4 | Promise<R4>)
+      : k extends K5
+      ?
+          | R5
+          | ((
+              ctx: C & { [k in K1 | K2 | K3 | K4]: k extends K1 ? R1 : k extends K2 ? R2 : k extends K3 ? R3 : R4 }
+            ) => R5 | Promise<R5>)
+      : k extends K6
+      ?
+          | R6
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : R5
+              }
+            ) => R6 | Promise<R6>)
+      : k extends K7
+      ?
+          | R7
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : R6
+              }
+            ) => R7 | Promise<R7>)
+      : k extends K8
+      ?
+          | R8
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : R7
+              }
+            ) => R8 | Promise<R8>)
+      : k extends K9
+      ?
+          | R9
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : R8
+              }
+            ) => R9 | Promise<R9>)
+      : k extends K10
+      ?
+          | R10
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : R9
+              }
+            ) => R10 | Promise<R10>)
+      : k extends K11
+      ?
+          | R11
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : k extends K9
+                  ? R9
+                  : R10
+              }
+            ) => R11 | Promise<R11>)
+      :
+          | R12
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : k extends K9
+                  ? R9
+                  : k extends K10
+                  ? R10
+                  : R11
+              }
+            ) => R12 | Promise<R12>)
   },
   only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12)[]
 ) => Promise<
@@ -1847,120 +1985,204 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
-    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
-  } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
-  } & {
-    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
-  } & {
-    [k in K5]?:
-      | R5
-      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
-  } & {
-    [k in K6]?:
-      | R6
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
-        ) => R6 | Promise<R6>)
-  } & {
-    [k in K7]?:
-      | R7
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          }
-        ) => R7 | Promise<R7>)
-  } & {
-    [k in K8]?:
-      | R8
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          }
-        ) => R8 | Promise<R8>)
-  } & {
-    [k in K9]?:
-      | R9
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          }
-        ) => R9 | Promise<R9>)
-  } & {
-    [k in K10]?:
-      | R10
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          }
-        ) => R10 | Promise<R10>)
-  } & {
-    [k in K11]?:
-      | R11
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          } & {
-            [k in K10]: R10
-          }
-        ) => R11 | Promise<R11>)
-  } & {
-    [k in K12]?:
-      | R12
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          } & {
-            [k in K10]: R10
-          } & {
-            [k in K11]: R11
-          }
-        ) => R12 | Promise<R12>)
-  } & {
-    [k in K13]?:
-      | R13
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          } & {
-            [k in K10]: R10
-          } & {
-            [k in K11]: R11
-          } & {
-            [k in K12]: R12
-          }
-        ) => R13 | Promise<R13>)
+  mock?: {
+    [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13]?: k extends K1
+      ? R1 | ((ctx: C) => R1 | Promise<R1>)
+      : k extends K2
+      ? R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+      : k extends K3
+      ? R3 | ((ctx: C & { [k in K1 | K2]: k extends K1 ? R1 : R2 }) => R3 | Promise<R3>)
+      : k extends K4
+      ? R4 | ((ctx: C & { [k in K1 | K2 | K3]: k extends K1 ? R1 : k extends K2 ? R2 : R3 }) => R4 | Promise<R4>)
+      : k extends K5
+      ?
+          | R5
+          | ((
+              ctx: C & { [k in K1 | K2 | K3 | K4]: k extends K1 ? R1 : k extends K2 ? R2 : k extends K3 ? R3 : R4 }
+            ) => R5 | Promise<R5>)
+      : k extends K6
+      ?
+          | R6
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : R5
+              }
+            ) => R6 | Promise<R6>)
+      : k extends K7
+      ?
+          | R7
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : R6
+              }
+            ) => R7 | Promise<R7>)
+      : k extends K8
+      ?
+          | R8
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : R7
+              }
+            ) => R8 | Promise<R8>)
+      : k extends K9
+      ?
+          | R9
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : R8
+              }
+            ) => R9 | Promise<R9>)
+      : k extends K10
+      ?
+          | R10
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : R9
+              }
+            ) => R10 | Promise<R10>)
+      : k extends K11
+      ?
+          | R11
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : k extends K9
+                  ? R9
+                  : R10
+              }
+            ) => R11 | Promise<R11>)
+      : k extends K12
+      ?
+          | R12
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : k extends K9
+                  ? R9
+                  : k extends K10
+                  ? R10
+                  : R11
+              }
+            ) => R12 | Promise<R12>)
+      :
+          | R13
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : k extends K9
+                  ? R9
+                  : k extends K10
+                  ? R10
+                  : k extends K11
+                  ? R11
+                  : R12
+              }
+            ) => R13 | Promise<R13>)
   },
   only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13)[]
 ) => Promise<
@@ -2254,142 +2476,236 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
-    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
-  } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
-  } & {
-    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
-  } & {
-    [k in K5]?:
-      | R5
-      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
-  } & {
-    [k in K6]?:
-      | R6
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
-        ) => R6 | Promise<R6>)
-  } & {
-    [k in K7]?:
-      | R7
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          }
-        ) => R7 | Promise<R7>)
-  } & {
-    [k in K8]?:
-      | R8
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          }
-        ) => R8 | Promise<R8>)
-  } & {
-    [k in K9]?:
-      | R9
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          }
-        ) => R9 | Promise<R9>)
-  } & {
-    [k in K10]?:
-      | R10
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          }
-        ) => R10 | Promise<R10>)
-  } & {
-    [k in K11]?:
-      | R11
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          } & {
-            [k in K10]: R10
-          }
-        ) => R11 | Promise<R11>)
-  } & {
-    [k in K12]?:
-      | R12
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          } & {
-            [k in K10]: R10
-          } & {
-            [k in K11]: R11
-          }
-        ) => R12 | Promise<R12>)
-  } & {
-    [k in K13]?:
-      | R13
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          } & {
-            [k in K10]: R10
-          } & {
-            [k in K11]: R11
-          } & {
-            [k in K12]: R12
-          }
-        ) => R13 | Promise<R13>)
-  } & {
-    [k in K14]?:
-      | R14
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          } & {
-            [k in K10]: R10
-          } & {
-            [k in K11]: R11
-          } & {
-            [k in K12]: R12
-          } & {
-            [k in K13]: R13
-          }
-        ) => R14 | Promise<R14>)
+  mock?: {
+    [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14]?: k extends K1
+      ? R1 | ((ctx: C) => R1 | Promise<R1>)
+      : k extends K2
+      ? R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+      : k extends K3
+      ? R3 | ((ctx: C & { [k in K1 | K2]: k extends K1 ? R1 : R2 }) => R3 | Promise<R3>)
+      : k extends K4
+      ? R4 | ((ctx: C & { [k in K1 | K2 | K3]: k extends K1 ? R1 : k extends K2 ? R2 : R3 }) => R4 | Promise<R4>)
+      : k extends K5
+      ?
+          | R5
+          | ((
+              ctx: C & { [k in K1 | K2 | K3 | K4]: k extends K1 ? R1 : k extends K2 ? R2 : k extends K3 ? R3 : R4 }
+            ) => R5 | Promise<R5>)
+      : k extends K6
+      ?
+          | R6
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : R5
+              }
+            ) => R6 | Promise<R6>)
+      : k extends K7
+      ?
+          | R7
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : R6
+              }
+            ) => R7 | Promise<R7>)
+      : k extends K8
+      ?
+          | R8
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : R7
+              }
+            ) => R8 | Promise<R8>)
+      : k extends K9
+      ?
+          | R9
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : R8
+              }
+            ) => R9 | Promise<R9>)
+      : k extends K10
+      ?
+          | R10
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : R9
+              }
+            ) => R10 | Promise<R10>)
+      : k extends K11
+      ?
+          | R11
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : k extends K9
+                  ? R9
+                  : R10
+              }
+            ) => R11 | Promise<R11>)
+      : k extends K12
+      ?
+          | R12
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : k extends K9
+                  ? R9
+                  : k extends K10
+                  ? R10
+                  : R11
+              }
+            ) => R12 | Promise<R12>)
+      : k extends K13
+      ?
+          | R13
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : k extends K9
+                  ? R9
+                  : k extends K10
+                  ? R10
+                  : k extends K11
+                  ? R11
+                  : R12
+              }
+            ) => R13 | Promise<R13>)
+      :
+          | R14
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : k extends K9
+                  ? R9
+                  : k extends K10
+                  ? R10
+                  : k extends K11
+                  ? R11
+                  : k extends K12
+                  ? R12
+                  : R13
+              }
+            ) => R14 | Promise<R14>)
   },
   only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14)[]
 ) => Promise<
@@ -2721,166 +3037,270 @@ export function klubok<
   >
 ): (
   ctx: C,
-  mock?: { [k in K1]?: R1 | ((ctx: C) => R1 | Promise<R1>) } & {
-    [k in K2]?: R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
-  } & {
-    [k in K3]?: R3 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 }) => R3 | Promise<R3>)
-  } & {
-    [k in K4]?: R4 | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 }) => R4 | Promise<R4>)
-  } & {
-    [k in K5]?:
-      | R5
-      | ((ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 }) => R5 | Promise<R5>)
-  } & {
-    [k in K6]?:
-      | R6
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 }
-        ) => R6 | Promise<R6>)
-  } & {
-    [k in K7]?:
-      | R7
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          }
-        ) => R7 | Promise<R7>)
-  } & {
-    [k in K8]?:
-      | R8
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          }
-        ) => R8 | Promise<R8>)
-  } & {
-    [k in K9]?:
-      | R9
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          }
-        ) => R9 | Promise<R9>)
-  } & {
-    [k in K10]?:
-      | R10
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          }
-        ) => R10 | Promise<R10>)
-  } & {
-    [k in K11]?:
-      | R11
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          } & {
-            [k in K10]: R10
-          }
-        ) => R11 | Promise<R11>)
-  } & {
-    [k in K12]?:
-      | R12
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          } & {
-            [k in K10]: R10
-          } & {
-            [k in K11]: R11
-          }
-        ) => R12 | Promise<R12>)
-  } & {
-    [k in K13]?:
-      | R13
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          } & {
-            [k in K10]: R10
-          } & {
-            [k in K11]: R11
-          } & {
-            [k in K12]: R12
-          }
-        ) => R13 | Promise<R13>)
-  } & {
-    [k in K14]?:
-      | R14
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          } & {
-            [k in K10]: R10
-          } & {
-            [k in K11]: R11
-          } & {
-            [k in K12]: R12
-          } & {
-            [k in K13]: R13
-          }
-        ) => R14 | Promise<R14>)
-  } & {
-    [k in K15]?:
-      | R15
-      | ((
-          ctx: C & { [k in K1]: R1 } & { [k in K2]: R2 } & { [k in K3]: R3 } & { [k in K4]: R4 } & { [k in K5]: R5 } & {
-            [k in K6]: R6
-          } & {
-            [k in K7]: R7
-          } & {
-            [k in K8]: R8
-          } & {
-            [k in K9]: R9
-          } & {
-            [k in K10]: R10
-          } & {
-            [k in K11]: R11
-          } & {
-            [k in K12]: R12
-          } & {
-            [k in K13]: R13
-          } & {
-            [k in K14]: R14
-          }
-        ) => R15 | Promise<R15>)
+  mock?: {
+    [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15]?: k extends K1
+      ? R1 | ((ctx: C) => R1 | Promise<R1>)
+      : k extends K2
+      ? R2 | ((ctx: C & { [k in K1]: R1 }) => R2 | Promise<R2>)
+      : k extends K3
+      ? R3 | ((ctx: C & { [k in K1 | K2]: k extends K1 ? R1 : R2 }) => R3 | Promise<R3>)
+      : k extends K4
+      ? R4 | ((ctx: C & { [k in K1 | K2 | K3]: k extends K1 ? R1 : k extends K2 ? R2 : R3 }) => R4 | Promise<R4>)
+      : k extends K5
+      ?
+          | R5
+          | ((
+              ctx: C & { [k in K1 | K2 | K3 | K4]: k extends K1 ? R1 : k extends K2 ? R2 : k extends K3 ? R3 : R4 }
+            ) => R5 | Promise<R5>)
+      : k extends K6
+      ?
+          | R6
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : R5
+              }
+            ) => R6 | Promise<R6>)
+      : k extends K7
+      ?
+          | R7
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : R6
+              }
+            ) => R7 | Promise<R7>)
+      : k extends K8
+      ?
+          | R8
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : R7
+              }
+            ) => R8 | Promise<R8>)
+      : k extends K9
+      ?
+          | R9
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : R8
+              }
+            ) => R9 | Promise<R9>)
+      : k extends K10
+      ?
+          | R10
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : R9
+              }
+            ) => R10 | Promise<R10>)
+      : k extends K11
+      ?
+          | R11
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : k extends K9
+                  ? R9
+                  : R10
+              }
+            ) => R11 | Promise<R11>)
+      : k extends K12
+      ?
+          | R12
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : k extends K9
+                  ? R9
+                  : k extends K10
+                  ? R10
+                  : R11
+              }
+            ) => R12 | Promise<R12>)
+      : k extends K13
+      ?
+          | R13
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : k extends K9
+                  ? R9
+                  : k extends K10
+                  ? R10
+                  : k extends K11
+                  ? R11
+                  : R12
+              }
+            ) => R13 | Promise<R13>)
+      : k extends K14
+      ?
+          | R14
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : k extends K9
+                  ? R9
+                  : k extends K10
+                  ? R10
+                  : k extends K11
+                  ? R11
+                  : k extends K12
+                  ? R12
+                  : R13
+              }
+            ) => R14 | Promise<R14>)
+      :
+          | R15
+          | ((
+              ctx: C & {
+                [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14]: k extends K1
+                  ? R1
+                  : k extends K2
+                  ? R2
+                  : k extends K3
+                  ? R3
+                  : k extends K4
+                  ? R4
+                  : k extends K5
+                  ? R5
+                  : k extends K6
+                  ? R6
+                  : k extends K7
+                  ? R7
+                  : k extends K8
+                  ? R8
+                  : k extends K9
+                  ? R9
+                  : k extends K10
+                  ? R10
+                  : k extends K11
+                  ? R11
+                  : k extends K12
+                  ? R12
+                  : k extends K13
+                  ? R13
+                  : R14
+              }
+            ) => R15 | Promise<R15>)
   },
   only?: (K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15)[]
 ) => Promise<
