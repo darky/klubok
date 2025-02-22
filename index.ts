@@ -5715,7 +5715,7 @@ export function klubok<
   fn18: KeyedFunction<
     K18,
     (ctx: {
-      [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15 | K16 | K17]: k extends K1
+      [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15 | K16 | K17 | keyof C]: k extends keyof C ? C[k] : k extends K1
         ? R1
         : k extends K2
         ? R2
@@ -6699,7 +6699,7 @@ export function klubok<
   fn18: KeyedFunction<
     K18,
     (ctx: {
-      [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15 | K16 | K17]: k extends K1
+      [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15 | K16 | K17 | keyof C]: k extends keyof C ? C[k] : k extends K1
         ? R1
         : k extends K2
         ? R2
@@ -6755,7 +6755,7 @@ export function klubok<
         | K15
         | K16
         | K17
-        | K18]: k extends K1
+        | K18 | keyof C]: k extends keyof C ? C[k] : k extends K1
         ? R1
         : k extends K2
         ? R2
@@ -7805,7 +7805,7 @@ export function klubok<
   fn18: KeyedFunction<
     K18,
     (ctx: {
-      [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15 | K16 | K17]: k extends K1
+      [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15 | K16 | K17 | keyof C]: k extends keyof C ? C[k] : k extends K1
         ? R1
         : k extends K2
         ? R2
@@ -7861,7 +7861,7 @@ export function klubok<
         | K15
         | K16
         | K17
-        | K18]: k extends K1
+        | K18 | keyof C]: k extends keyof C ? C[k] : k extends K1
         ? R1
         : k extends K2
         ? R2
@@ -7920,7 +7920,7 @@ export function klubok<
         | K16
         | K17
         | K18
-        | K19]: k extends K1
+        | K19 | keyof C]: k extends keyof C ? C[k] : k extends K1
         ? R1
         : k extends K2
         ? R2
