@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "build": "rm -rf dist && tsc",
-    "test": "node --experimental-strip-types --test ./test.ts",
+    "test": "node --test ./test.ts",
     "test:types": "cp index.test-d.ts ./dist/ && npx tsd",
     "prepublishOnly": "npm run build"
   },
