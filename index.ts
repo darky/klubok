@@ -5715,7 +5715,27 @@ export function klubok<
   fn18: KeyedFunction<
     K18,
     (ctx: {
-      [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15 | K16 | K17 | keyof C]: k extends keyof C ? C[k] : k extends K1
+      [k in
+        | K1
+        | K2
+        | K3
+        | K4
+        | K5
+        | K6
+        | K7
+        | K8
+        | K9
+        | K10
+        | K11
+        | K12
+        | K13
+        | K14
+        | K15
+        | K16
+        | K17
+        | keyof C]: k extends keyof C
+        ? C[k]
+        : k extends K1
         ? R1
         : k extends K2
         ? R2
@@ -6699,7 +6719,27 @@ export function klubok<
   fn18: KeyedFunction<
     K18,
     (ctx: {
-      [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15 | K16 | K17 | keyof C]: k extends keyof C ? C[k] : k extends K1
+      [k in
+        | K1
+        | K2
+        | K3
+        | K4
+        | K5
+        | K6
+        | K7
+        | K8
+        | K9
+        | K10
+        | K11
+        | K12
+        | K13
+        | K14
+        | K15
+        | K16
+        | K17
+        | keyof C]: k extends keyof C
+        ? C[k]
+        : k extends K1
         ? R1
         : k extends K2
         ? R2
@@ -6755,7 +6795,10 @@ export function klubok<
         | K15
         | K16
         | K17
-        | K18 | keyof C]: k extends keyof C ? C[k] : k extends K1
+        | K18
+        | keyof C]: k extends keyof C
+        ? C[k]
+        : k extends K1
         ? R1
         : k extends K2
         ? R2
@@ -7354,7 +7397,10 @@ export function klubok<
     | K16
     | K17
     | K18
-    | K19 | keyof C]: k extends keyof C ? C[k] : k extends K1
+    | K19
+    | keyof C]: k extends keyof C
+    ? C[k]
+    : k extends K1
     ? R1
     : k extends K2
     ? R2
@@ -7805,7 +7851,27 @@ export function klubok<
   fn18: KeyedFunction<
     K18,
     (ctx: {
-      [k in K1 | K2 | K3 | K4 | K5 | K6 | K7 | K8 | K9 | K10 | K11 | K12 | K13 | K14 | K15 | K16 | K17 | keyof C]: k extends keyof C ? C[k] : k extends K1
+      [k in
+        | K1
+        | K2
+        | K3
+        | K4
+        | K5
+        | K6
+        | K7
+        | K8
+        | K9
+        | K10
+        | K11
+        | K12
+        | K13
+        | K14
+        | K15
+        | K16
+        | K17
+        | keyof C]: k extends keyof C
+        ? C[k]
+        : k extends K1
         ? R1
         : k extends K2
         ? R2
@@ -7861,7 +7927,10 @@ export function klubok<
         | K15
         | K16
         | K17
-        | K18 | keyof C]: k extends keyof C ? C[k] : k extends K1
+        | K18
+        | keyof C]: k extends keyof C
+        ? C[k]
+        : k extends K1
         ? R1
         : k extends K2
         ? R2
@@ -7920,7 +7989,10 @@ export function klubok<
         | K16
         | K17
         | K18
-        | K19 | keyof C]: k extends keyof C ? C[k] : k extends K1
+        | K19
+        | keyof C]: k extends keyof C
+        ? C[k]
+        : k extends K1
         ? R1
         : k extends K2
         ? R2
@@ -8660,28 +8732,29 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
     return funcs.reduce(
       mock == null && only == null
         ? (acc, fn) =>
-            acc.then(ctx =>
-              !fn.mutable && Reflect.has(ctx, fn.key)
-                ? Promise.reject(
-                    new Error(`Try to override existing alias "${fn.key}". Let's rename alias or use "mut" wrapper`)
-                  )
-                : (async () => {
-                    try {
-                      if (isExit) {
-                        return ctx
-                      }
-                      return await Promise.resolve(fn(ctx)).then(
-                        resp => (fn.exitable && resp && (isExit = true), { ...ctx, [fn.key]: resp })
-                      )
-                    } catch (error) {
-                      await onError?.({ ...ctx, $error: error })
-                      if (error instanceof Error) {
-                        error.stack += '\ncontext: ' + inspect(ctx)
-                      }
-                      throw error
-                    }
-                  })()
-            )
+            acc.then(async ctx => {
+              if (!fn.mutable && ctx[fn.key]) {
+                return Promise.reject(
+                  new Error(`Try to override existing alias "${fn.key}". Let's rename alias or use "mut" wrapper`)
+                )
+              }
+              if (isExit) {
+                return ctx
+              }
+              try {
+                const resp = await fn(ctx)
+                if (fn.exitable && resp) {
+                  isExit = true
+                }
+                return { ...ctx, [fn.key]: resp }
+              } catch (error) {
+                await onError?.({ ...ctx, $error: error })
+                if (error instanceof Error) {
+                  error.stack += '\ncontext: ' + inspect(ctx)
+                }
+                throw error
+              }
+            })
         : (acc, fn) =>
             acc.then(ctx =>
               !fn.mutable && Reflect.has(ctx, fn.key) && !Reflect.has(mock ?? {}, fn.key)
@@ -8710,7 +8783,7 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
                     }
                   })()
             ),
-      Promise.resolve({ ...rootCtx, ...mock })
+      Promise.resolve({ ...rootCtx, ...mock } as Record<string, unknown>)
     )
   }
 }

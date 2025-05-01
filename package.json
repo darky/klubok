@@ -13,6 +13,7 @@
     "dist/index.d.ts"
   ],
   "scripts": {
+    "bench": "node ./bench.ts",
     "build": "rm -rf dist && tsc",
     "test": "node --test ./test.ts",
     "test:types": "cp index.test-d.ts ./dist/ && npx tsd",
@@ -34,6 +35,8 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^22.15.3",
+    "klubok": "0.4.2",
+    "tinybench": "^4.0.1",
     "tsd": "^0.32.0",
     "typescript": "^5.8.3"
   }
