@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@github.com:darky/klubok.git"
+    "url": "git+ssh://git@github.com/darky/klubok.git"
   },
   "files": [
     "dist/index.js",
