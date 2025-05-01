@@ -8726,13 +8726,15 @@ export function klubok<
 export function klubok(...fns: KeyedFunction<string, Function>[]) {
   const funcs = fns.filter(f => !f.onError)
   const onError = fns.find(f => f.onError)
+  const funcsLength = funcs.length
 
   return async (rootCtx = {}, mock?: object, only?: string[]) => {
     let isExit = false
 
     if (mock == null && only == null) {
       let ctx = rootCtx
-      for (const fn of funcs) {
+      for (let i = 0; i < funcsLength; i++) {
+        const fn = funcs[i]!
         if (!fn.mutable && (ctx as Record<string, unknown>)[fn.key]) {
           throw new Error(`Try to override existing alias "${fn.key}". Let's rename alias or use "mut" wrapper`)
         }
@@ -8744,7 +8746,7 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
           if (fn.exitable && resp) {
             isExit = true
           }
-          ctx = { ...ctx, [fn.key]: resp }
+          (ctx as Record<string, unknown>)[fn.key] = resp
         } catch (error) {
           await onError?.({ ...ctx, $error: error })
           if (error instanceof Error) {
