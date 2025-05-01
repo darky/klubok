@@ -8727,62 +8727,64 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
   const funcs = fns.filter(f => !f.onError)
   const onError = fns.find(f => f.onError)
 
-  return (rootCtx = {}, mock?: object, only?: string[]) => {
+  return async (rootCtx = {}, mock?: object, only?: string[]) => {
     let isExit = false
+
+    if (mock == null && only == null) {
+      let ctx = rootCtx
+      for (const fn of funcs) {
+        if (!fn.mutable && (ctx as Record<string, unknown>)[fn.key]) {
+          throw new Error(`Try to override existing alias "${fn.key}". Let's rename alias or use "mut" wrapper`)
+        }
+        if (isExit) {
+          break
+        }
+        try {
+          const resp = await fn(ctx)
+          if (fn.exitable && resp) {
+            isExit = true
+          }
+          ctx = { ...ctx, [fn.key]: resp }
+        } catch (error) {
+          await onError?.({ ...ctx, $error: error })
+          if (error instanceof Error) {
+            error.stack += '\ncontext: ' + inspect(ctx)
+          }
+          throw error
+        }
+      }
+      return ctx
+    }
+
     return funcs.reduce(
-      mock == null && only == null
-        ? (acc, fn) =>
-            acc.then(async ctx => {
-              if (!fn.mutable && ctx[fn.key]) {
-                return Promise.reject(
-                  new Error(`Try to override existing alias "${fn.key}". Let's rename alias or use "mut" wrapper`)
-                )
-              }
-              if (isExit) {
-                return ctx
-              }
-              try {
-                const resp = await fn(ctx)
-                if (fn.exitable && resp) {
-                  isExit = true
+      (acc, fn) =>
+        acc.then(ctx =>
+          !fn.mutable && Reflect.has(ctx, fn.key) && !Reflect.has(mock ?? {}, fn.key)
+            ? Promise.reject(
+                new Error(`Try to override existing alias "${fn.key}". Let's rename alias or use "mut" wrapper`)
+              )
+            : (mock && Reflect.has(mock, fn.key) && typeof Reflect.get(mock, fn.key) !== 'function') ||
+              (only && only.length && !only.includes(fn.key))
+            ? ctx
+            : (async () => {
+                try {
+                  if (isExit) {
+                    return ctx
+                  }
+                  return await Promise.resolve(
+                    mock && Reflect.has(mock, fn.key) && typeof Reflect.get(mock, fn.key) === 'function'
+                      ? Reflect.get(mock, fn.key)(ctx)
+                      : fn(ctx)
+                  ).then(resp => (fn.exitable && resp && (isExit = true), { ...ctx, [fn.key]: resp }))
+                } catch (error) {
+                  await onError?.({ ...ctx, $error: error })
+                  if (error instanceof Error) {
+                    error.stack += '\ncontext: ' + inspect(ctx)
+                  }
+                  throw error
                 }
-                return { ...ctx, [fn.key]: resp }
-              } catch (error) {
-                await onError?.({ ...ctx, $error: error })
-                if (error instanceof Error) {
-                  error.stack += '\ncontext: ' + inspect(ctx)
-                }
-                throw error
-              }
-            })
-        : (acc, fn) =>
-            acc.then(ctx =>
-              !fn.mutable && Reflect.has(ctx, fn.key) && !Reflect.has(mock ?? {}, fn.key)
-                ? Promise.reject(
-                    new Error(`Try to override existing alias "${fn.key}". Let's rename alias or use "mut" wrapper`)
-                  )
-                : (mock && Reflect.has(mock, fn.key) && typeof Reflect.get(mock, fn.key) !== 'function') ||
-                  (only && only.length && !only.includes(fn.key))
-                ? ctx
-                : (async () => {
-                    try {
-                      if (isExit) {
-                        return ctx
-                      }
-                      return await Promise.resolve(
-                        mock && Reflect.has(mock, fn.key) && typeof Reflect.get(mock, fn.key) === 'function'
-                          ? Reflect.get(mock, fn.key)(ctx)
-                          : fn(ctx)
-                      ).then(resp => (fn.exitable && resp && (isExit = true), { ...ctx, [fn.key]: resp }))
-                    } catch (error) {
-                      await onError?.({ ...ctx, $error: error })
-                      if (error instanceof Error) {
-                        error.stack += '\ncontext: ' + inspect(ctx)
-                      }
-                      throw error
-                    }
-                  })()
-            ),
+              })()
+        ),
       Promise.resolve({ ...rootCtx, ...mock } as Record<string, unknown>)
     )
   }

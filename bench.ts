@@ -29,10 +29,10 @@ const fnOld = klubokOld(
 )
 
 bench
-  .add('new version', async () => {
+  .add('master', async () => {
     await fn({ number: 1 })
   })
-  .add('old version', async () => {
+  .add('0.4.3', async () => {
     await fnOld({ number: 1 })
   })
 
