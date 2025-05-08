@@ -32,7 +32,7 @@ bench
   .add('master', async () => {
     await fn({ number: 1 })
   })
-  .add('0.4.5', async () => {
+  .add('0.4.4', async () => {
     await fnOld({ number: 1 })
   })
 

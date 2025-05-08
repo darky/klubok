@@ -438,3 +438,12 @@ test('exitIf true for development fn', async () => {
     number: 0,
   })
 })
+
+test('response should be JSON stringified', async () => {
+  const fn = klubok(
+    pure('req', (req: { number: number }) => req),
+    pure('strNumber', ({ req }) => req.number.toString())
+  )
+  const resp = await fn({ number: 0 })
+  assert.strictEqual(JSON.stringify(resp), '{"number":0,"req":"<root>","strNumber":"0"}')
+})

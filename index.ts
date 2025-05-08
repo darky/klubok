@@ -8746,13 +8746,18 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
           if (fn.exitable && resp) {
             isExit = true
           }
-          (ctx as Record<string, unknown>)[fn.key] = resp
+          ;(ctx as Record<string, unknown>)[fn.key] = resp
         } catch (error) {
           await onError?.({ ...ctx, $error: error })
           if (error instanceof Error) {
             error.stack += '\ncontext: ' + inspect(ctx)
           }
           throw error
+        }
+      }
+      for (const key of Object.keys(ctx)) {
+        if ((ctx as Record<string, unknown>)[key] === ctx) {
+          ;(ctx as Record<string, unknown>)[key] = '<root>'
         }
       }
       return ctx
