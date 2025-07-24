@@ -34,7 +34,7 @@
   "author": "Vladislav Botvin",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^22.15.17",
+    "@types/node": "^24.1.0",
     "klubok": "0.4.7",
     "tinybench": "^4.0.1",
     "tsd": "^0.32.0",
