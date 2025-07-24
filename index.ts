@@ -19,7 +19,7 @@ export const eff = <K extends string, C, R>(
 export const mut = <K extends string, C, R>(fn: KeyedFunction<K, (ctx: C) => R>): KeyedFunction<K, (ctx: C) => R> =>
   Object.assign(fn, { mutable: true })
 
-export const exitIfNullable = <K extends string, C, R>(fn: KeyedFunction<K, (ctx: C) => R>) =>
+export const exitIfNullable = <K extends string, C, R>(fn: KeyedFunction<K, (ctx: C) => Promise<R> | R>) =>
   Object.assign(fn, { exitable: true }) as KeyedFunction<K, (ctx: C) => NonNullable<R>>
 
 export const onError = <K extends string, C, R>(key: K, fn: (ctx: C) => R): KeyedFunction<K, (ctx: C) => R> =>

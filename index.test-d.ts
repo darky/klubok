@@ -3133,3 +3133,34 @@ expectType<
     pure('strLength', ({ strNumber }) => strNumber.length)
   )
 )
+
+expectType<
+  (
+    ctx: { number: number },
+    mock?:
+      | {
+          incNumber?: number | ((ctx: { number: number; numberIsZero: false | null }) => number | Promise<number>)
+          strNumber?:
+            | string
+            | ((ctx: { number: number; incNumber: number; numberIsZero: false | null }) => string | Promise<string>)
+          strLength?:
+            | number
+            | ((ctx: {
+                number: number
+                incNumber: number
+                strNumber: string
+                numberIsZero: false | null
+              }) => number | Promise<number>)
+          numberIsZero?: false | ((ctx: { number: number }) => false | Promise<false>)
+        }
+      | undefined,
+    only?: ('incNumber' | 'strNumber' | 'strLength' | 'numberIsZero')[] | undefined
+  ) => Promise<{ number: number; incNumber: number; strNumber: string; strLength: number; numberIsZero: false }>
+>(
+  klubok(
+    exitIfNullable(eff('numberIsZero', async (ctx: { number: number }) => (ctx.number === 0 ? null : false))),
+    pure('incNumber', ctx => ctx.number + 1),
+    eff('strNumber', async ({ incNumber }) => incNumber.toString()),
+    pure('strLength', ({ strNumber }) => strNumber.length)
+  )
+)
