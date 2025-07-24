@@ -3139,17 +3139,17 @@ expectType<
     ctx: { number: number },
     mock?:
       | {
-          incNumber?: number | ((ctx: { number: number; numberIsZero: false | null }) => number | Promise<number>)
+          incNumber?: number | ((ctx: { number: number; numberIsZero: false }) => number | Promise<number>)
           strNumber?:
             | string
-            | ((ctx: { number: number; incNumber: number; numberIsZero: false | null }) => string | Promise<string>)
+            | ((ctx: { number: number; incNumber: number; numberIsZero: false }) => string | Promise<string>)
           strLength?:
             | number
             | ((ctx: {
                 number: number
                 incNumber: number
                 strNumber: string
-                numberIsZero: false | null
+                numberIsZero: false
               }) => number | Promise<number>)
           numberIsZero?: false | ((ctx: { number: number }) => false | Promise<false>)
         }
