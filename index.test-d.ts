@@ -1,4 +1,4 @@
-import { eff, klubok, mut, pure } from './index'
+import { eff, exitIfNullable, klubok, mut, pure } from './index'
 import { expectType } from 'tsd'
 
 expectType<
@@ -3100,5 +3100,36 @@ expectType<
     pure('arrayWithIdealNumber', ({ idealNumber, numbersArray }) => [...numbersArray, idealNumber]),
     eff('notIsMocked', async ({ isMocked }) => !isMocked),
     pure('idealNumberString', ({ idealNumber }) => idealNumber.toString())
+  )
+)
+
+expectType<
+  (
+    ctx: { number: number },
+    mock?:
+      | {
+          incNumber?: number | ((ctx: { number: number; numberIsZero: false }) => number | Promise<number>)
+          strNumber?:
+            | string
+            | ((ctx: { number: number; incNumber: number; numberIsZero: false }) => string | Promise<string>)
+          strLength?:
+            | number
+            | ((ctx: {
+                number: number
+                incNumber: number
+                strNumber: string
+                numberIsZero: false
+              }) => number | Promise<number>)
+          numberIsZero?: false | ((ctx: { number: number }) => false | Promise<false>)
+        }
+      | undefined,
+    only?: ('incNumber' | 'strNumber' | 'strLength' | 'numberIsZero')[] | undefined
+  ) => Promise<{ number: number; incNumber: number; strNumber: string; strLength: number; numberIsZero: false }>
+>(
+  klubok(
+    exitIfNullable(pure('numberIsZero', (ctx: { number: number }) => (ctx.number === 0 ? null : false))),
+    pure('incNumber', ctx => ctx.number + 1),
+    eff('strNumber', async ({ incNumber }) => incNumber.toString()),
+    pure('strLength', ({ strNumber }) => strNumber.length)
   )
 )

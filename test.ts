@@ -1,5 +1,5 @@
 import test from 'node:test'
-import { eff, exitIf, klubok, mut, onError, pure } from './index.ts'
+import { eff, exitIfNullable, klubok, mut, onError, pure } from './index.ts'
 import assert from 'node:assert'
 
 test('1 param sync, resp', async () => {
@@ -391,8 +391,8 @@ test('onError handler is silent', async () => {
 
 test('exitIf false for production fn', async () => {
   const fn = klubok(
-    exitIf(pure('exited', ({ number }: { number: number }) => number === 0)),
-    pure('strNumber', ({ number }) => number.toString())
+    exitIfNullable(pure('exited', ({ number }: { number: number }) => (number === 0 ? null : false))),
+    pure('strNumber', ({ exited, number }) => exited === false && number.toString())
   )
   const resp = await fn({ number: 1 })
   assert.deepStrictEqual(resp, {
@@ -404,19 +404,19 @@ test('exitIf false for production fn', async () => {
 
 test('exitIf true for production fn', async () => {
   const fn = klubok(
-    exitIf(pure('exited', ({ number }: { number: number }) => number === 0)),
-    pure('strNumber', ({ number }) => number.toString())
+    exitIfNullable(pure('exited', ({ number }: { number: number }) => (number === 0 ? null : false))),
+    pure('strNumber', ({ exited, number }) => exited === false && number.toString())
   )
   const resp = await fn({ number: 0 })
   assert.deepStrictEqual(resp, {
-    exited: true,
+    exited: null,
     number: 0,
   })
 })
 
 test('exitIf false for development fn', async () => {
   const fn = klubok(
-    exitIf(pure('exited', ({ number }: { number: number }) => number === 0)),
+    exitIfNullable(pure('exited', ({ number }: { number: number }) => (number === 0 ? null : false))),
     pure('strNumber', ({ number }) => number.toString())
   )
   const resp = await fn({ number: 1 }, {}, [])
@@ -429,12 +429,12 @@ test('exitIf false for development fn', async () => {
 
 test('exitIf true for development fn', async () => {
   const fn = klubok(
-    exitIf(pure('exited', ({ number }: { number: number }) => number === 0)),
+    exitIfNullable(pure('exited', ({ number }: { number: number }) => (number === 0 ? null : false))),
     pure('strNumber', ({ number }) => number.toString())
   )
   const resp = await fn({ number: 0 }, {}, [])
   assert.deepStrictEqual(resp, {
-    exited: true,
+    exited: null,
     number: 0,
   })
 })

@@ -19,8 +19,8 @@ export const eff = <K extends string, C, R>(
 export const mut = <K extends string, C, R>(fn: KeyedFunction<K, (ctx: C) => R>): KeyedFunction<K, (ctx: C) => R> =>
   Object.assign(fn, { mutable: true })
 
-export const exitIf = <K extends string, C, R>(fn: KeyedFunction<K, (ctx: C) => R>): KeyedFunction<K, (ctx: C) => R> =>
-  Object.assign(fn, { exitable: true })
+export const exitIfNullable = <K extends string, C, R>(fn: KeyedFunction<K, (ctx: C) => R>) =>
+  Object.assign(fn, { exitable: true }) as KeyedFunction<K, (ctx: C) => NonNullable<R>>
 
 export const onError = <K extends string, C, R>(key: K, fn: (ctx: C) => R): KeyedFunction<K, (ctx: C) => R> =>
   Object.assign(fn, { exitable: false, key, mutable: false, onError: true })
@@ -8743,7 +8743,7 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
         }
         try {
           const resp = await fn(ctx)
-          if (fn.exitable && resp) {
+          if (fn.exitable && resp == null) {
             isExit = true
           }
           if (resp === ctx) {
@@ -8781,7 +8781,7 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
                     mock && Reflect.has(mock, fn.key) && typeof Reflect.get(mock, fn.key) === 'function'
                       ? Reflect.get(mock, fn.key)(ctx)
                       : fn(ctx)
-                  ).then(resp => (fn.exitable && resp && (isExit = true), { ...ctx, [fn.key]: resp }))
+                  ).then(resp => (fn.exitable && resp == null && (isExit = true), { ...ctx, [fn.key]: resp }))
                 } catch (error) {
                   await onError?.({ ...ctx, $error: error })
                   if (error instanceof Error) {
