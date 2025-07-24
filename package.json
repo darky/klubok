@@ -35,7 +35,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^24.1.0",
-    "klubok": "0.5.0",
+    "klubok": "0.5.1",
     "tinybench": "^4.0.1",
     "tsd": "^0.32.0",
     "typescript": "^5.8.3"
