@@ -4,7 +4,7 @@
 
 Do notation pipes for Promise-based or pure functions which easy to mock <br/>
 Inspired by fp-ts/Effect `bind` Do-notation, but much more small and simple <br/>
-Primarly created for easy mocking of functions, which allows to write tons of unit tests
+Primarly created for easy mocking of functions, which allows to write tons of unit tests using London school approach
 
 ## Example
 
