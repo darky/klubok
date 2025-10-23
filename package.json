@@ -34,10 +34,10 @@
   "author": "Vladislav Botvin",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^24.1.0",
+    "@types/node": "^24.9.1",
     "klubok": "0.5.1",
-    "tinybench": "^4.0.1",
-    "tsd": "^0.32.0",
-    "typescript": "^5.8.3"
+    "tinybench": "^5.0.1",
+    "tsd": "^0.33.0",
+    "typescript": "^5.9.3"
   }
 }
