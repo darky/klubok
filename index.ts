@@ -8784,7 +8784,7 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
                   ).then(resp => (fn.exitable && resp == null && (isExit = true), { ...ctx, [fn.key]: resp }))
                 } catch (error) {
                   await onError?.({ ...ctx, $error: error })
-                  if (error instanceof Error) {
+                  if (error instanceof Error && !(error as { isApproved?: boolean }).isApproved) {
                     error.stack += '\ncontext: ' + inspect(ctx)
                   }
                   throw error

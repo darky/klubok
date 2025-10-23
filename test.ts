@@ -354,6 +354,21 @@ test('throwable error with context for test fn', async () => {
   assert.match(err.stack ?? '', /context: { number: 1, incNumber: 2, strNumber: '2' }/)
 })
 
+test('no context for approved error', async () => {
+  const approvedError = new Error('test')
+  ;(approvedError as any).isApproved = true
+  const fn = klubok(
+    pure('incNumber', (ctx: { number: number }) => ctx.number + 1),
+    pure('strNumber', ({ incNumber }) => incNumber.toString()),
+    eff('throwable', () => {
+      throw approvedError
+    })
+  )
+  const err = await fn({ number: 1 }, {}, []).catch(e => e)
+  assert.deepStrictEqual(err, approvedError)
+  assert.doesNotMatch(err.stack ?? '', /context:/)
+})
+
 test('onError handler catched', async () => {
   let ctxOnError
   const fn = klubok(
