@@ -8753,7 +8753,7 @@ export function klubok(...fns: KeyedFunction<string, Function>[]) {
           }
         } catch (error) {
           await onError?.({ ...ctx, $error: error })
-          if (error instanceof Error) {
+          if (error instanceof Error && !(error as { isApproved?: boolean }).isApproved) {
             error.stack += '\ncontext: ' + inspect(ctx)
           }
           throw error
