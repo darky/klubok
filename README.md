@@ -17,7 +17,6 @@ Inspired by fp-ts/Effect `bind` Do-notation, but smaller and simpler. Primarily 
 - 🛡️ **Type-safe** — Full TypeScript support with inferred types for up to 20 functions
 - 🐛 **Debug-friendly** — Automatic context attachment to errors for easier debugging
 - ⚡ **Mutable state** — Support for mutable operations when needed
-- 🚪 **Early exit** — Conditional pipeline termination with `exitIfNullable`
 
 ## Installation
 
@@ -115,52 +114,6 @@ const fn = klubok(
 
 await fn({})
 // { data: [2, 4, 6] }
-```
-
-### `exitIfNullable(fn)`
-
-Marks a function for **conditional early exit**. If the function returns `null` or `undefined`, the pipeline stops and subsequent functions are not executed.
-
-```ts
-import { pure, exitIfNullable, klubok } from 'klubok'
-
-const fn = klubok(
-  exitIfNullable(
-    pure('user', ({ id }: { id: number }) => (id === 0 ? null : { id }))
-  ),
-  pure('greeting', ({ user }) => `Hello, ${user.name}!`)
-)
-
-await fn({ id: 0 })
-// { id: 0, user: null } — 'greeting' is not executed
-
-await fn({ id: 1 })
-// { id: 1, user: { id: 1 }, greeting: 'Hello, ...!' }
-```
-
-### `onError<K, C, R>(key: K, fn: (ctx: C) => R)`
-
-Registers an error handler that receives the context (including `$error`) when an error occurs. The handler is **silent** — it doesn't suppress the error.
-
-```ts
-import { onError, eff, klubok } from 'klubok'
-
-let capturedError
-const fn = klubok(
-  onError('logError', ctx => {
-    capturedError = ctx.$error
-    console.error('Pipeline error:', ctx.$error)
-  }),
-  eff('failing', async () => {
-    throw new Error('Something went wrong')
-  })
-)
-
-try {
-  await fn({})
-} catch (e) {
-  // Error is still thrown, but context was logged
-}
 ```
 
 ### `klubok(...fns)`
@@ -278,11 +231,16 @@ try {
 Errors with `isApproved = true` property won't have context attached (useful for expected business logic errors):
 
 ```ts
+class ApprovedError extends Error {
+  isApproved = true
+  constructor(message: string, options?: ErrorOptions) {
+    super(message, options)
+  }
+}
+
 const fn = klubok(
   eff('validate', async () => {
-    const err = new Error('Invalid input')
-    ;(err as any).isApproved = true
-    throw err
+    throw new ApprovedError('Invalid input')
   })
 )
 ```
@@ -336,24 +294,6 @@ const transformData = klubok(
   pure('validated', ({ parsed }) => schema.parse(parsed)),
   pure('normalized', ({ validated }) => normalize(validated)),
   pure('enriched', ({ normalized }) => addMetadata(normalized))
-)
-```
-
-### Conditional Workflows
-
-Use `exitIfNullable` for workflows that should stop on certain conditions:
-
-```ts
-const userFlow = klubok(
-  exitIfNullable(
-    eff('getUser', async ({ id }) => db.users.find(id))
-  ),
-  exitIfNullable(
-    eff('checkPermissions', async ({ getUser }) => auth.check(getUser))
-  ),
-  eff('executeAction', async ({ getUser, checkPermissions }) => {
-    // Only runs if previous steps succeeded
-  })
 )
 ```
 
